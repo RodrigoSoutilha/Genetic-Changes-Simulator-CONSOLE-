@@ -38,7 +38,7 @@ public class Program
 	{
 		int bornCreatures = randomNumber.Next(1,5); //Generates a random number of born creatures for the next generation
 		if (bornCreatures % 2 == 0) /*/ check if the number of born creature is even or odd, to choose randomly two of them 
-		and cross them again, while those who doesn't have a pair just die without crossing/*/	
+		and cross them again, while those who doesn't have a pair just die without procriating/*/	
 		{
 		}
 		else
