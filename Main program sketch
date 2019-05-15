@@ -1,65 +1,69 @@
 using System;
+	
 
-namespace Genetic_Cross
+public class individual {
+	public bool gender;
+	public int geneOneDominance;
+	public int geneTwoDominance;
+	
+	public individual(bool gender, int geneOneDominance, int geneTwoDominance)
+	{
+		this.gender = gender;
+		this.geneOneDominance = geneOneDominance;
+		this.geneTwoDominance = geneTwoDominance;
+	}
+	
+	}
+
+public class Program
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("GENETIC CROSS\n\n");
+	
+	public static void Main()
+	{
+	Console.WriteLine("Digite o número de gerações");
+	int generations = int.Parse(Console.ReadLine());
+	individual[] individualsArray = new individual[generations];
+	
+	}
 
-            FUNCTION2()
-            Console.WriteLine("[1] Hair color\n[2] Eye color\n[3] Skin color\n");
-            Console.ReadLine() = string feature;
-            if (feature != "1") or (feature != "2") or (feature != "3")
-            {
-                Console.Clear();
-                Console.WriteLine("Enter a valid value");
-                System.Threading(50);
-                Console.Clear();
-                FUNCTION2()
-            }
-            else if (feature == "1")
-            {
-                FUNCTION1()
-                Console.WriteLine("Choose the color\n");
-                Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-                Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-                Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)")
-                Console.WriteLine("[4] Back");
-                Console.ReadLine() = string 1;
+
+
+	public int createSecondIndividual()
+	{
+	individual secondIndividual = new individual();	
+	}
+
+
+
+
+	public int createFirstIndividual_Hair()
+	{
+		Console.WriteLine("The first individual is masculine.\n Choose the hair genic configuration\n\n");
+		Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+    	Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+    	Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+    	Console.WriteLine("[4] Back");
+		try
+		{
+			int firstIndividual_hair = int.Parse(Console.ReadLine());         
+        	Console.Clear();
+        	if (firstIndividual_hair == 1)
+             {
+            	Console.Clear();	
+             }
+             else if (confirmation == "N");
+             {
+             	Console.Clear();
+				createFirstIndividual();
+                    	}
 
                 
-                if (1 = !"1") or(1 = !"2") or(1 = !"3")
-                {
-                    Console.Clear();
-                    System.Threading(50);
-                    Console.WriteLine("Enter a valid value");
-                    Console.Clear();
-                    FUNCTION1()
-                    
-                }
-                else if (1 == "1")
-                {
-                    INSERT INTO DATABASE
-                    Console.Clear();
-                    Console.WriteLine("Insert more features?\n");
-                    Console.WriteLine("[Y/N]");
-                    Console.ReadLine() = string a;
-                    if (a == "Y")
-                    {
-                        Console.Clear();
-                        FUNCTION2()
-                    }
-                    else
-                    {
-                        Console.Clear();
+				Console.WriteLine("Confirm?\n");
+                Console.WriteLine("[Y/N]");
+                   	string confirmation = Console.ReadLine();
+	}
 
-                    }
-
-                }
-
-                else if (1 == "2")
+                else if ( == "2")
                 {
                     INSERT INTO DATABASE
                 }
@@ -68,29 +72,22 @@ namespace Genetic_Cross
                     INSERT INTO DATABASE
                 }
 
+	
+	
+	Console.WriteLine("Choose the skin color genic configuration");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+    Console.WriteLine("[4] Back");
+	}
 
-            }
 
-            
+	
+	public int 
 
-            
- 
-
-
-
-        }
-    }
+		Console.WriteLine("Choose the eye color genic configuration");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+    Console.WriteLine("[4] Back");
 }
-
-
-int newGeneration()
-{
-    GetData()
-    If (First   
-
-}
-
-
-
-----------------------------------------------------------
-
