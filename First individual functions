@@ -1,0 +1,62 @@
+//These data are not real, I made it this way just to test the program
+
+
+public int createFirstIndividual_Hair()
+	{
+		Console.WriteLine("The first individual is masculine.\n Choose the hair genic configuration\n\n");
+		Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+    Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+    Console.WriteLine("[4] Back");
+		try
+		{
+			int firstIndividual_hair = int.Parse(Console.ReadLine());         
+        	Console.Clear();
+        	if (firstIndividual_hair == 1)
+             {
+            	Console.Clear();	
+             }
+             else if (confirmation == "N");
+             {
+             	Console.Clear();
+				createFirstIndividual();
+                    	}
+
+                
+				Console.WriteLine("Confirm?\n");
+                Console.WriteLine("[Y/N]");
+                   	string confirmation = Console.ReadLine();
+	}
+
+                else if ( == "2")
+                {
+                    INSERT INTO DATABASE
+                }
+                else (1 == "3")
+                {
+                    INSERT INTO DATABASE
+                }
+
+	
+//***********************************************************************************************************************************//	
+	public int createFirstIndividual_Skin()
+  {
+  Console.WriteLine("Choose the skin color genic configuration");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+  Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+  Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+  Console.WriteLine("[4] Back");
+	}
+
+
+//************************************************************************************************************************************//	
+
+	public int createFirstIndividual_Eye()
+  {
+
+	Console.WriteLine("Choose the eye color genic configuration");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+  Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+  Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+  Console.WriteLine("[4] Back");
+}
