@@ -1,62 +1,108 @@
 //These data are not real, I made it this way just to test the program
 
 
-public int createFirstIndividual_Hair()
+//********************************************************************************************************************************//
+	
+	public int createFirstIndividual_Eye ()
 	{
-		Console.WriteLine("The first individual is masculine.\n Choose the hair genic configuration\n\n");
-		Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+	string confirmation;
+	Console.WriteLine("Choose the hair genetic configuration\n\n");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
+    	Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
+    	Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
+    	Console.WriteLine("[4] Back");
+		try
+		{
+			int firstIndividual_Eye = int.Parse(Console.ReadLine());         
+        		Console.Clear();
+        	if (firstIndividual_Eye == 1)
+             	{
+            		Console.Clear();	
+			Console.WriteLine("Confirm?\n");
+            		Console.WriteLine("[Y/N]");
+			string confirmation = Console.ReadLine();
+             }
+            else if(firstIndividual_Eye == 2)
+            {
+            	Console.Clear();
+				Console.WriteLine("Confirm?\n");
+           		Console.WriteLine("[Y/N]");
+            	string confirmation = Console.ReadLine();
+            }   
+			else if(firstIndividual_Eye == 3)
+            {
+            	Console.Clear();
+				Console.WriteLine("Confirm?\n");
+            	Console.WriteLine("[Y/N]");
+            	string confirmation = Console.ReadLine();
+            }	
+			else (firstIndividual_Eye == 4)
+			{	
+            Console.Clear();
+			firstIndividual_Eye();
+			}
+			
+		catch
+		{
+			Console.Clear();
+			Console.WriteLine("Enter a valid value");
+			createFirstIndividual_hair();
+		}			
+	
+	return firstIndividual_Eye		
+	}
+
+//********************************************************************************************************************************//
+
+	
+	public int createFirstIndividual_Skin();
+	{
+	Console.WriteLine("Choose the hair genetic configuration\n\n");
+	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
     Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
     Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
     Console.WriteLine("[4] Back");
 		try
 		{
-			int firstIndividual_hair = int.Parse(Console.ReadLine());         
+			int firstIndividual_Skin = int.Parse(Console.ReadLine());         
         	Console.Clear();
-        	if (firstIndividual_hair == 1)
+        	if (firstIndividual_Skin == 1)
              {
             	Console.Clear();	
-             }
-             else if (confirmation == "N");
-             {
-             	Console.Clear();
-				createFirstIndividual();
-                    	}
-
-                
 				Console.WriteLine("Confirm?\n");
-                Console.WriteLine("[Y/N]");
-                   	string confirmation = Console.ReadLine();
+            	Console.WriteLine("[Y/N]");
+            	string confirmation = Console.ReadLine();
+             }
+            else if(firstIndividual_Skin == 2)
+            {
+            	Console.Clear();
+				Console.WriteLine("Confirm?\n");
+           		Console.WriteLine("[Y/N]");
+            	string confirmation = Console.ReadLine();
+            }   
+			else if(firstIndividual_Skin == 3)
+            {
+            	Console.Clear();
+				Console.WriteLine("Confirm?\n");
+            	Console.WriteLine("[Y/N]");
+            	string confirmation = Console.ReadLine();
+            }	
+			else (firstIndividual_Skin == 4)
+			{	
+            Console.Clear();
+			firstIndividual_Skin();
+			}
+			
+		catch
+		{
+			Console.Clear();
+			Console.WriteLine("Enter a valid value");
+			createFirstIndividual_hair();
+		}			
+				
+	return firstIndividual_Skin	
 	}
-
-                else if ( == "2")
-                {
-                    INSERT INTO DATABASE
-                }
-                else (1 == "3")
-                {
-                    INSERT INTO DATABASE
-                }
-
-	
-//***********************************************************************************************************************************//	
-	public int createFirstIndividual_Skin()
-  {
-  Console.WriteLine("Choose the skin color genic configuration");
-	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-  Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-  Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
-  Console.WriteLine("[4] Back");
-	}
+		
+//********************************************************************************************************************************//
 
 
-//************************************************************************************************************************************//	
-
-	public int createFirstIndividual_Eye()
-  {
-
-	Console.WriteLine("Choose the eye color genic configuration");
-	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-  Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-  Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
-  Console.WriteLine("[4] Back");
-}
