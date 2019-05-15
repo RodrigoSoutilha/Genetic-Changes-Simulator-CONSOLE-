@@ -29,21 +29,40 @@ public class Program
 	int generations = int.Parse(Console.ReadLine());
 	individual[] individualsArray = new individual[generations];
 	Random randomNumber = new Random();
-	int id1 = 0;	
+	int id1 = 1;	
 	int id2 = id1 + 1;
+	int totalNumberOfCreatures = 0;
 	int numberOfIndividualsThatDiedWithoutProcriating = 0;
 	int totalNumberOfCouples = 0;
 	
-	public NewGeneration(individualsArray[id1],individualsArray[id2])
+	for(int i=0;i=<generations;i++)
 	{
-		int bornCreatures = randomNumber.Next(1,5); //Generates a random number of born creatures for the next generation
+		for(int j=0;j=<numberOfCouples;j++)
+		{
+		int bornCreatures = randomNumber.Next(0,6); //Generates a random number of born creatures for the next generation
+		for(int j=0;j=<bornCreatures;j++) // Creates an object for each born creature
+		{
+			id1 = id1 + 1
+			CalculateAndGiveIndividualGeneticPool();
+			individualsArray[id1] = new individual();
+		}
 		if (bornCreatures % 2 == 0) /*/ check if the number of born creature is even or odd, to choose randomly two of them 
 		and cross them again, while those who doesn't have a pair just die without procriating/*/	
 		{
+		//Choose randomly the creatures that will procriate
+		int creature1 = randomNumber.Next(0, bornCreatures + 1);
+		while(creature2 = creature1)
+		int creature1 = randomNumber.Next(0, bornCreatures + 1);
+		break;
+		int numberOfCouples = ;
+		CalculateOffspringGeneticPool();
 		}
+		
+	
 		else
 		{
 		}	
+		
 		CalculateOffspringGeneticPool(bornCreatures, individualsArray[id1], individualsArray[id2]); /*/Calculates and gives the genetic configuration
 		for the born creatures based on the genetic configuration of their parents (last two parameters)/*/	
 		
