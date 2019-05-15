@@ -9,12 +9,19 @@ public class individual
 	public int geneticSkinConfiguration;
 	public int[] Gametes = {get; set;}
 	
-	public int formGametes (numberOfSimulatedGenes, int geneticHairConfiguration, int geneticEyeConfiguration)
+	public int setGametes (params simulatedGenes[])
 	{
-		for(int h=0;h<numberOfSimulatedGenes + 1<h++);	
-		Gametes[h] = this.geneticHairConfiguration
-	
-	
+		for(int o=0;o<simulatedGenes.Length;o++)
+		{
+			if(simulatedGenes[o] == 1)
+			{
+				Gametes[o] = 11
+			}
+			else
+			{
+				Gametes[o] = 10
+			}
+		}
 	}
 	
 	public individual(bool gender, int geneticHairConfiguration, int geneticEyeConfiguration, int geneticSkinConfiguration)
