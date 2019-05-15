@@ -3,10 +3,20 @@ using System;
 
 public class individual 
 {
-	public bool gender;
+	public int gender;
 	public int geneticHairConfiguration;
 	public int geneticEyeConfiguration;
 	public int geneticSkinConfiguration;
+	public int[] Gametes = {get; set;}
+	
+	public int formGametes (numberOfSimulatedGenes, int geneticHairConfiguration, int geneticEyeConfiguration)
+	{
+		for(int h=0;h<numberOfSimulatedGenes + 1<h++);	
+		Gametes[h] = this.geneticHairConfiguration
+	
+	
+	}
+	
 	public individual(bool gender, int geneticHairConfiguration, int geneticEyeConfiguration, int geneticSkinConfiguration)
 	{
 		this.gender = gender;
@@ -14,6 +24,7 @@ public class individual
 		this.geneticEyeConfiguration = geneticEyeConfiguration;
 		this.geneticSkinConfiguration = geneticSkinConfiguration;
 	}
+	
 	
 }
 
