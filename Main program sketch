@@ -1,93 +1,50 @@
 using System;
-	
-
-public class individual {
-	public bool gender;
+				
+public class individual 
+{
+	public int gender;
 	public int geneOneDominance;
 	public int geneTwoDominance;
+	public int feature;
 	
-	public individual(bool gender, int geneOneDominance, int geneTwoDominance)
+	public individual(int gender, int geneOneDominance, int geneTwoDominance)
 	{
 		this.gender = gender;
 		this.geneOneDominance = geneOneDominance;
 		this.geneTwoDominance = geneTwoDominance;
 	}
-	
-	}
-
+}
 public class Program
 {
-	
 	public static void Main()
 	{
 	Console.WriteLine("Digite o número de gerações");
 	int generations = int.Parse(Console.ReadLine());
 	individual[] individualsArray = new individual[generations];
+	Random randomNumber = new Random();
+	int id1 = 0;	
+	int id2 = id1 + 1;
+	int numberOfIndividualsThatDiedWithoutProcriating = 0;
+	int totalNumberOfCouples = 0;
 	
-	}
-
-
-
-	public int createSecondIndividual()
+	public NewGeneration(individualsArray[id1],individualsArray[id2])
 	{
-	individual secondIndividual = new individual();	
-	}
-
-
-
-
-	public int createFirstIndividual_Hair()
-	{
-		Console.WriteLine("The first individual is masculine.\n Choose the hair genic configuration\n\n");
-		Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-    	Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-    	Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
-    	Console.WriteLine("[4] Back");
-		try
+		int bornCreatures = randomNumber.Next(1,5); //Generates a random number of born creatures for the next generation
+		if (bornCreatures % 2 == 0) /*/ check if the number of born creature is even or odd, to choose randomly two of them 
+		and cross them again, while those who doesn't have a pair just die without crossing/*/	
 		{
-			int firstIndividual_hair = int.Parse(Console.ReadLine());         
-        	Console.Clear();
-        	if (firstIndividual_hair == 1)
-             {
-            	Console.Clear();	
-             }
-             else if (confirmation == "N");
-             {
-             	Console.Clear();
-				createFirstIndividual();
-                    	}
-
-                
-				Console.WriteLine("Confirm?\n");
-                Console.WriteLine("[Y/N]");
-                   	string confirmation = Console.ReadLine();
+		}
+		else
+		{
+		}	
+		CalculateOffspringGeneticPool(bornCreatures, individualsArray[id1], individualsArray[id2]); /*/Calculates and gives the genetic configuration
+		for the born creatures based on the genetic configuration of their parents (last two parameters)/*/	
+		
 	}
-
-                else if ( == "2")
-                {
-                    INSERT INTO DATABASE
-                }
-                else (1 == "3")
-                {
-                    INSERT INTO DATABASE
-                }
-
-	
-	
-	Console.WriteLine("Choose the skin color genic configuration");
-	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-    Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-    Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
-    Console.WriteLine("[4] Back");
+	Console.WriteLine("final");
+	 
 	}
-
-
-	
-	public int 
-
-		Console.WriteLine("Choose the eye color genic configuration");
-	Console.WriteLine("[1] Black (Aa) - Heterozygous (DOMINANT FEATURE)\n");
-    Console.WriteLine("[2] Black (AA) - Homozygous (DOMINANT FEATURE)\n");
-    Console.WriteLine("[3] Yellow (aa) (RECESSIVE FEATURE)");
-    Console.WriteLine("[4] Back");
 }
+
+
+
