@@ -1,23 +1,30 @@
 using System;
-				
+
+
 public class individual 
 {
-	public int gender;
-	public int geneOneDominance;
-	public int geneTwoDominance;
-	public int feature;
-	
-	public individual(int gender, int geneOneDominance, int geneTwoDominance)
+	public bool gender;
+	public int geneticHairConfiguration;
+	public int geneticEyeConfiguration;
+	public int geneticSkinConfiguration;
+	public individual(bool gender, int geneticHairConfiguration, int geneticEyeConfiguration, int geneticSkinConfiguration)
 	{
 		this.gender = gender;
-		this.geneOneDominance = geneOneDominance;
-		this.geneTwoDominance = geneTwoDominance;
+		this.geneticHairConfiguration = geneticHairConfiguration;
+		this.geneticEyeConfiguration = geneticEyeConfiguration;
+		this.geneticSkinConfiguration = geneticSkinConfiguration;
 	}
+	
 }
+
 public class Program
 {
 	public static void Main()
 	{
+	createFirstIndividual();
+	individual firstIndividual = new individual(1, firstIndividual_Hair, firstIndividual_Eye, firstIndividual_Skin);
+	createSecondIndividual();
+	individual secondIndividual = new individual(0, secondIdividual_Hair, secondIndividual_Eye, secondIndividual_Skin);
 	Console.WriteLine("Digite o número de gerações");
 	int generations = int.Parse(Console.ReadLine());
 	individual[] individualsArray = new individual[generations];
