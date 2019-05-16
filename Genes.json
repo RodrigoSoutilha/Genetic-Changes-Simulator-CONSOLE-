@@ -1,0 +1,20 @@
+{
+  "gene": {
+    "hairColor": {
+      "black": [ 1, 3 ],
+      "blond": 2
+    },
+    "eyeColor": {
+      "brown": [ 1, 3 ],
+      "blue": 2
+    },
+    "skinColor": {
+      "brown": [ 1, 3 ],
+      "white": 2
+    },
+    "lipsColor": {
+      "pink": [ 1, 3 ],
+      "red": 2
+    }
+  }
+} 
