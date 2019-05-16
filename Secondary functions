@@ -31,7 +31,8 @@ catch
 }
 
 
-//Function to ask the number of genes the user will simulate
+//Function to ask the number of genes the user will simulate, and which are they
+//Value is stored
 
 int chosenGenes = 0;
 		int b = 0;
