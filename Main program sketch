@@ -7,6 +7,7 @@ public class individual
 	public int geneticHairConfiguration;
 	public int geneticEyeConfiguration;
 	public int geneticSkinConfiguration;
+	public int 
 	public int[] Gametes = {get; set;}
 	
 	public int setGametes (params simulatedGenes[])
@@ -50,19 +51,21 @@ public class Program
 	int id1 = 1;	
 	int id2 = id1 + 1;
 	int allBornCreatures = 0;
+	int numberOfCouples = 1;
 	int totalNumberOfCreatures = 0;
 	int numberOfIndividualsThatDiedWithoutProcriating = 0;
 	int totalNumberOfCouples = 0;
 	
-	for(int i=0;i=<generations;i++)
+	for(int i=0;i<generations;i++)
 	{
-		for(int j=0;j<numberOfCouples + 1;j++)
+		for(int j=0;j<numberOfCouples;j++)
 		{
 		int bornCreatures = randomNumber.Next(0,6); //Generates a random number of born creatures for the next generation
 		for(int k=0;k=<bornCreatures;k++) // Creates an object for each born creature
 		{
 			allBornCreatures = allBornCreatures + 1
 			id1 = id1 + 1
+			createParentalGametes
 			CalculateAndGiveIndividualGeneticPool();
 			individualsArray[id1] = new individual();
 		}
