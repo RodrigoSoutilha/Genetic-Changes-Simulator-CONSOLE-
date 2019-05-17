@@ -6,12 +6,8 @@ public class Program
     {
         Individuals setNewSimulation = new Individuals(0);
         setNewSimulation.setSeeds();
-
     }
-
 }
-
-
 public class Individuals
 {
     public int[] geneticConfiguration { get; set; }
@@ -23,16 +19,15 @@ public class Individuals
         geneticConfiguration = new int[numberOfChosenGenes];
         chosenGenes = new int[numberOfChosenGenes];
     }
-
     public int setSeeds() ///////////////////////////////////AQUI////////////////////////////////////////
     {
         int i;
         int j;
         int k;
-		int h;
-		int g;
-		int choose_gene;
-		Random randomNumber = new Random();
+	int h;
+	int g;
+	int choose_gene;
+	Random randomNumber = new Random();
         Console.WriteLine("Number of seeds: "); // Number of generations
         int numberOfSeeds = int.Parse(Console.ReadLine()); ;
         Console.Clear();
@@ -75,5 +70,4 @@ public class Individuals
         Console.ReadLine();
         return 0;
     }
-
 }
