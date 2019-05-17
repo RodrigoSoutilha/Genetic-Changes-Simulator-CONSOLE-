@@ -1,166 +1,79 @@
 using System;
 
-
-public class individual 
-{
-	public int gender;
-	public int geneticHairConfiguration;
-	public int geneticEyeConfiguration;
-	public int geneticSkinConfiguration;
-	public int 
-	public int[] Gametes = {get; set;}
-	
-	public int setGametes (params simulatedGenes[])
-	{
-		for(int o=0;o<simulatedGenes.Length;o++)
-		{
-			if(simulatedGenes[o] == 1)
-			{
-				Gametes[o] = 11
-			}
-			else
-			{
-				Gametes[o] = 10
-			}
-		}
-	}
-	
-	public individual(bool gender, int geneticHairConfiguration, int geneticEyeConfiguration, int geneticSkinConfiguration)
-	{
-		this.gender = gender;
-		this.geneticHairConfiguration = geneticHairConfiguration;
-		this.geneticEyeConfiguration = geneticEyeConfiguration;
-		this.geneticSkinConfiguration = geneticSkinConfiguration;
-	}
-
-public class gamete{
-
-int geneticHairConfiguration;
-int geneticEyeConfiguration;
-int geneticSkinConfiguration;
-	
-public gamete(int geneticHairConfiguration, int geneticEyeConfiguration, int geneticSkinConfiguration){
-
-this.geneticHairConfiguration = geneticHairConfiguration;
-this.geneticEyeConfiguration = geneticEyeConfiguration;
-this.geneticSkinConfiguration = geneticSkinConfiguration;
-
-}
-
-}
-
-public class simulation()
-
-	int seedsSetup;
-	int generationsSetup;
-	bool startNewSimulation
-	
-	
-	
-	
-	
-	
-	newSimulation(generationsSetup, startNewSimulation)
-	for(int i=0;i<generations;i++)
-	{
-		for(int j=0;j<numberOfCouples;j++)
-		{
-		int bornCreatures = randomNumber.Next(0,6); //Generates a random number of born creatures for the next generation
-		for(int k=0;k=<bornCreatures;k++) // Creates an object for each born creature
-		{
-			allBornCreatures = allBornCreatures + 1
-			id1 = id1 + 1
-			createParentalGametes
-			CalculateAndGiveIndividualGeneticPool();
-			individualsArray[id1] = new individual();
-		}
-		if (allBornCreatures % 2 == 0) /*/ check if the number of born creature is even or odd, to choose randomly two of them 
-		and cross them again, while those who doesn't have a pair just die without procriating/*/	
-		{
-		//Choose randomly the creatures that will procriate
-		int creature1 = randomNumber.Next(0, bornCreatures + 1);
-		while(creature2 = creature1)
-		int creature1 = randomNumber.Next(0, bornCreatures + 1);
-		break;
-		int numberOfCouples = ;
-		allBornCreatures = 0;
-		CalculateOffspringGeneticPool();
-		}
-		
-	
-		else
-		{
-		}	
-		
-		//CalculateOffspringGeneticPool(bornCreatures, individualsArray[id1], individualsArray[id2]); /*/Calculates and gives the genetic configuration
-		//for the born creatures based on the genetic configuration of their parents (last two parameters)/*/	
-		
-	
-	Console.WriteLine("Would you like to configurate the seeds?\n");
-	Console.WriteLine("[1] Generate random seeds");
-	Console.WriteLine("[2] Configurate the seeds");
-	Console.WriteLine("[3] Back");
-	simulation.seedSetup = int.Parse(Console.ReadLine());
-	setSeed(simulation.seedsSetup);
-	
-	setSeed(int seedsSetup){
-	if (choice == 1){
-	Random randomNumber = new Random();
-	individual seed1 = new individual(1,randomNumber.Next(1,4),randomNumber.Next(1,4),randomNumber.Next(1,4));
-	individual seed2 = new individual(0,randomNumber.Next(1,4),randomNumber.Next(1,4),randomNumber.Next(1,4));
-	return 0;
-	}
-	else{
-	int chosenGenes = 0;
-	int b = 0;
-	Console.WriteLine("How many genes do you want to work with?");
-	Console.WriteLine("[2] 2 genes");
-	Console.WriteLine("[3] 3 genes");
-	int numberOfSimulatedGenes = int.Parse(Console.ReadLine());
-	int[] simulatedGenes = new int[numberOfSimulatedGenes];
-	Console.Clear();
-	Console.WriteLine("Select the " + numberOfSimulatedGenes + " genes you want to work with\n");
-	Console.WriteLine("[ 1 ] - Hair genes");
-	Console.WriteLine("[ 2 ] - Eye genes");
-	Console.WriteLine("[ 3 ] - Skin genes");
-	Console.WriteLine("[ 0 ] - Back");	
-	for (b = 0; b<numberOfSimulatedGenes; b++){
-	chosenGenes = int.Parse(Console.ReadLine()); //chosenGenes cannot be larger than numberOfSimulatedGenes
-	Console.Clear();
-	Console.WriteLine("Select the " + numberOfSimulatedGenes + " genes you want to work with\n");
-	Console.WriteLine("[ 1 ] - Hair genes");
-	Console.WriteLine("[ 2 ] - Eye genes");
-	Console.WriteLine("[ 3 ] - Skin genes");
-	Console.WriteLine("[ 0 ] - Back");
-	simulatedGenes[b] = chosenGenes;
-	}
-	return 0;
-	}
-	
-
-}
-
 public class Program
 {
-	public static void Main()
-	{
-	int id1 = 1;	
-	int id2 = id1 + 1;
-	int allBornCreatures = 0;
-	int numberOfCouples = 1;
-	int totalNumberOfCreatures = 0;
-	int numberOfIndividualsThatDiedWithoutProcriating = 0;
-	int totalNumberOfCouples = 0;
-	individual[] individualsArray = new individual[generation]
-	
-	
-	
-	
-	}
-	Console.WriteLine("final");
-	 
-	}
+    public static void Main()
+    {
+        Individuals setNewSimulation = new Individuals(0);
+        setNewSimulation.setSeeds();
+
+    }
+
 }
 
 
+public class Individuals
+{
+    public int[] geneticConfiguration { get; set; }
+    public int[] chosenGenes;
+    public int numberOfChosenGenes;
 
+    public Individuals(int numberOfSimulatedGenes)
+    {
+        geneticConfiguration = new int[numberOfChosenGenes];
+        chosenGenes = new int[numberOfChosenGenes];
+    }
+
+    public int setSeeds() ///////////////////////////////////AQUI////////////////////////////////////////
+    {
+        int i;
+        int j;
+        int k;
+		int h;
+		int g;
+		int choose_gene;
+		Random randomNumber = new Random();
+        Console.WriteLine("Number of seeds: "); // Number of generations
+        int numberOfSeeds = int.Parse(Console.ReadLine()); ;
+        Console.Clear();
+        Individuals[] individualsArray = new Individuals[numberOfSeeds];
+        Console.WriteLine("Type the number of genes you wanna work with"); // int numberOfSimulatedGenes
+        int getnumberOfChosenGenes = int.Parse(Console.ReadLine());
+        Console.Clear();
+        this.numberOfChosenGenes = getnumberOfChosenGenes;
+
+        for (i = 0; i < numberOfSeeds; i++)
+        {
+        	individualsArray[i] = new Individuals(getnumberOfChosenGenes);
+	}
+        for (h = 0; h < numberOfChosenGenes;h++) //get genes the user will simulate and store in the individuals inside individuals array
+	{
+		Console.WriteLine("Choose genes");
+		choose_gene = int.Parse(Console.ReadLine());
+		for(g = 0;g<numberOfSeeds;g++)
+		{
+			individualsArray[g].chosenGenes[h] = choose_gene;
+		}
+	}		
+	Console.WriteLine("How do you want the seeds's genetics?");
+        Console.WriteLine("[1] Random");
+        Console.WriteLine("[2] Custom");
+        int choose = int.Parse(Console.ReadLine()); //aqui também
+        if (choose == 1)
+        {
+		for(k=0;k<numberOfChosenGenes;k++)
+	{
+          	individualsArray[k].geneticConfiguration[k] = randomNumber.Next(0,4);
+		Console.WriteLine(individualsArray[k].geneticConfiguration[k]);
+	}  
+}
+        else 
+	{
+	//custom
+	}
+        Console.WriteLine("skrr skrr skrr"); //cola num compilador online pra vc testar
+        Console.ReadLine();
+        return 0;
+    }
+
+}
