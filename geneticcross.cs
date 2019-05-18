@@ -25,21 +25,22 @@ public class Individuals
         this.chosenGenes = new int[numberOfChosenGenes];
     }
 
-    public int setSeeds() 
+    public int setSeeds()
     {
         int i;
-        int j;
+		int j;
         int k;
         int h;
         int g;
         int f;
+		int randomGeneticConfiguration;
         int choose_gene;
         Random randomNumber = new Random();
         Console.WriteLine("Number of seeds: ");
         int numberOfSeeds = int.Parse(Console.ReadLine());
         Console.Clear();
         Individuals[] individualsArray = new Individuals[numberOfSeeds];
-        Console.WriteLine("Type the number of genes you wanna work with"); 
+        Console.WriteLine("Type the number of genes you wanna work with");
         int getnumberOfChosenGenes = int.Parse(Console.ReadLine());
         Console.Clear();
         this.numberOfChosenGenes = getnumberOfChosenGenes;
@@ -47,38 +48,56 @@ public class Individuals
 
         for (i = 0; i < numberOfSeeds; i++)
         {
+
             individualsArray[i] = new Individuals(getnumberOfChosenGenes);
+
         }
-        Console.WriteLine("Choose genes");
-        Console.WriteLine("[1] [2] [3] [4] [5] [6] [7] [8] [9] [10]");
-        choose_gene = int.Parse(Console.ReadLine());
-        for (g = 0; g < getnumberOfChosenGenes; g++)  
+
+        for (g = 0; g < getnumberOfChosenGenes; g++)
         {
+            Console.Clear();
+            Console.WriteLine("Choose genes\n");
+            Console.WriteLine("[1] [2] [3] [4] [5] [6] [7] [8] [9] [10]\n");
+            Console.WriteLine(getnumberOfChosenGenes - g + " more genes to choose");
+            choose_gene = int.Parse(Console.ReadLine());
             for (f = 0; f < numberOfSeeds; f++)
             {
-
-                individualsArray[f].chosenGenes[g] = choose_gene;
+			individualsArray[f].chosenGenes[g] = choose_gene;
             }
-        }
-
-        Console.WriteLine("How do you want the seeds's genetics?");
-        Console.WriteLine("[1] Random");
-        Console.WriteLine("[2] Custom");
-        int choose = int.Parse(Console.ReadLine()); 
-        if (choose == 1)
-        {
-            for (k = 0; k < numberOfChosenGenes; k++) 
+		}
+            Console.Clear();
+            Console.WriteLine("How do you want the seeds's genetics?");
+            Console.WriteLine("[1] Random");
+            Console.WriteLine("[2] Custom");
+            int choose = int.Parse(Console.ReadLine());
+            if (choose == 1)
             {
-                individualsArray[k].geneticConfiguration[k] = randomNumber.Next(0, 4);
-                Console.WriteLine(individualsArray[k].geneticConfiguration[k]);
+                for (k = 0; k <numberOfSeeds; k++)
+                {
+                    for (h = 0; h < getnumberOfChosenGenes; h++)
+                    {
+					 
+					individualsArray[k].geneticConfiguration[h] = randomNumber.Next(0,4);
+                    }
+                }
             }
-        }
-        else
-        {
-            //custom
-        }
-        Console.WriteLine("skrr skrr skrr");
+            else
+            {
+                //custom
+            }
+            for (k = 0; k < numberOfSeeds; k++)
+            {
+                for (j = 0; j< getnumberOfChosenGenes; j++)
+                {
+				Console.WriteLine("Individual " + k + " gene "+  j + " = " + individualsArray[k].geneticConfiguration[j]);
+                }
+            }
+        
         Console.ReadLine();
         return 0;
+        
     }
 }
+
+
+
