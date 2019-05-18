@@ -33,7 +33,7 @@ public class Individuals
         int h;
         int g;
         int f;
-		int randomGeneticConfiguration;
+		int jumpLine = 0;
         int choose_gene;
         Random randomNumber = new Random();
         Console.WriteLine("Number of seeds: ");
@@ -90,14 +90,20 @@ public class Individuals
                 for (j = 0; j< getnumberOfChosenGenes; j++)
                 {
 				Console.WriteLine("Individual " + k + " gene "+  j + " = " + individualsArray[k].geneticConfiguration[j]);
-                }
+				if (jumpLine == getnumberOfChosenGenes - 1)
+				{
+				Console.WriteLine("\n");
+				jumpLine = 0;
+				}
+				else{
+				jumpLine = jumpLine + 1;
+				}
+                
+				}
             }
-        
+		Console.WriteLine("Confirm?[Y/N]");
         Console.ReadLine();
         return 0;
         
     }
 }
-
-
-
