@@ -1,46 +1,45 @@
-using System;
+ using System;
 
 public class Program
 {
     public static void Main()
     {
-        Individuals setNewSimulation = new Individuals(0);
-        setNewSimulation.setSeeds();
-        
+        Seed teste = new Seed(0);
+		teste.setSeeds();
+
+		
+		Console.WriteLine(teste.seedsObj[1].chosenGenes[1]);
+		
+
     }
 
 }
 
 
-public class Individuals
+public class Seed
 {
     public int[] geneticConfiguration { get; set; }
     public int[] chosenGenes { get; set; }
     public int numberOfChosenGenes;
-    public Individuals[] individualsObj { get; set; }
+	public Seed[] seedsObj { get; set; }
 
-    public Individuals(int numberOfSimulatedGenes)
+    public Seed(int numberOfSimulatedGenes)
     {
         this.numberOfChosenGenes = numberOfSimulatedGenes;
         this.geneticConfiguration = new int[numberOfChosenGenes];
         this.chosenGenes = new int[numberOfChosenGenes];
     }
 
-    public int setSeeds()
+    public void setSeeds()
     {
-        int i;
-		int j;
-        int k;
-        int h;
-        int g;
-        int f;
+        int i, j, k, h, g, f;
 		int jumpLine = 0;
         int choose_gene;
         Random randomNumber = new Random();
         Console.WriteLine("Number of seeds: ");
         int numberOfSeeds = int.Parse(Console.ReadLine());
         Console.Clear();
-        Individuals[] individualsArray = new Individuals[numberOfSeeds];
+        Seed[] seedsArray = new Seed[numberOfSeeds];
         Console.WriteLine("Type the number of genes you wanna work with");
         int getnumberOfChosenGenes = int.Parse(Console.ReadLine());
         Console.Clear();
@@ -48,18 +47,22 @@ public class Individuals
         Console.WriteLine(this.chosenGenes.Length.ToString());
 
         for (i = 0; i < numberOfSeeds; i++)
-            individualsArray[i] = new Individuals(getnumberOfChosenGenes);
+        {
+
+            seedsArray[i] = new Seed(getnumberOfChosenGenes);
+
+        }
 
         for (g = 0; g < getnumberOfChosenGenes; g++)
         {
             Console.Clear();
             Console.WriteLine("Choose genes\n");
             Console.WriteLine("[1] [2] [3] [4] [5] [6] [7] [8] [9] [10]\n");
-            Console.WriteLine(getnumberOfChosenGenes - g + " more genes to choose");
+            Console.WriteLine(getnumberOfChosenGenes - g + " more gene(s) to choose");
             choose_gene = int.Parse(Console.ReadLine());
             for (f = 0; f < numberOfSeeds; f++)
             {
-			    individualsArray[f].chosenGenes[g] = choose_gene;
+			seedsArray[f].chosenGenes[g] = choose_gene;
             }
 		}
             Console.Clear();
@@ -68,9 +71,16 @@ public class Individuals
             Console.WriteLine("[2] Custom");
             int choose = int.Parse(Console.ReadLine());
             if (choose == 1)
+            {
                 for (k = 0; k <numberOfSeeds; k++)
+                {
                     for (h = 0; h < getnumberOfChosenGenes; h++)
-					    individualsArray[k].geneticConfiguration[h] = randomNumber.Next(0,4);
+                    {
+					 
+					seedsArray[k].geneticConfiguration[h] = randomNumber.Next(0,4);
+                    }
+                }
+            }
             else
             {
                 //custom
@@ -79,18 +89,36 @@ public class Individuals
             {
                 for (j = 0; j< getnumberOfChosenGenes; j++)
                 {
-				    Console.WriteLine($"Individual {k} gene {j} = {individualsArray[k].geneticConfiguration[j]}");
-				    if (jumpLine == getnumberOfChosenGenes - 1)
-				    {
-				        Console.WriteLine("\n");
-				        jumpLine = 0;
-				    }
-				    else
-				        jumpLine = jumpLine + 1;
+				Console.WriteLine("Seed " + k + " gene "+  j + " = " + seedsArray[k].geneticConfiguration[j]);
+				if (jumpLine == getnumberOfChosenGenes - 1)
+				{
+				Console.WriteLine("\n");
+				jumpLine = 0;
+				}
+				else{
+				jumpLine = jumpLine + 1;
+				}
+                
 				}
             }
 		Console.WriteLine("Confirm?[Y/N]");
         Console.ReadLine();
-        this.individualsObj = individualsArray;
+        this.seedsObj = seedsArray;
     }
+}
+
+
+public class Creatures
+{
+    public int[] geneticConfiguration { get; set; }
+    public int[] chosenGenes { get; set; }
+    public int numberOfChosenGenes;
+
+    public Creatures(int numberOfSimulatedGenes)
+    {
+        this.numberOfChosenGenes = numberOfSimulatedGenes;
+        this.geneticConfiguration = new int[numberOfChosenGenes];
+        this.chosenGenes = new int[numberOfChosenGenes];
+    }
+	
 }
