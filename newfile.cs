@@ -16,8 +16,6 @@ public class Program
         Console.WriteLine("end");
         Console.ReadLine();
     }
-
-
 }
 
 
@@ -130,7 +128,7 @@ public class Settings
         {
             for (int f = 0; f < this.numberOfSeeds; f++)
             {
-                individualsArray[f].chosenGenes[g] = this.chosenGenes[g];
+                individualsArray[f].chosenGenes[g] = this.chosenGenes[f];
             }
         }
     }
