@@ -201,7 +201,81 @@ public class Settings
 
 }
 
-    
+
+
+public class Simulation
+{
+    int passedGenerations = 0;
+    int numberOfCreaturesInThisGeneration;
+    public int generations;
+    int id1;
+    int id2 = 2;
+    int allBornCreatures = 0;
+    int numberOfCouples = 1;
+    int totalNumberOfCreatures = 0;
+    int numberOfIndividualsThatDiedWithoutProcriating = 0;
+    int totalNumberOfCouples = 0;
+    int chosenCreature1 = 0;
+    int chosenCreature2 = 0;
+    int[] chosenCreaturesToCopulate = new int[1];
+    int newCreatures = 0;
+
+    public object[] startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray, int numberOfSimulatedGenes) //receives individualsArray or individualsArray data
+    {
+        int id = 0;
+        id = numberOfSeeds + 1;
+        numberOfCouples = numberOfSeeds / 2;
+        Random randNum = new Random();
+        for (int i = 0; i < generations - 3; i++)
+        {
+            passedGenerations = passedGenerations + 1;
+            Console.WriteLine("Generation = " + passedGenerations);
+            Console.WriteLine("Number of creatures in this generation = " + allBornCreatures);
+            for (int j = 0; j < numberOfCouples; j++)
+            {
+                Random randomBirths = new Random();
+                int bornCreatures = randomBirths.Next(0, 6); //Generates a random number of born creatures for the next generation
+                for (int m = 0; m < bornCreatures; m++) //Creates an object for each born creature
+                {
+                    Random numberRandom = new Random();
+                    allBornCreatures = allBornCreatures + bornCreatures;
+                    //até aqui ok 
+                    //generate all possible gametes for all creatures
+                    /*/public int generateGametes(individualsArray[id1],individualsArray[id2]){
+                    }
+                    /*/
+                    seedsArray[id] = new Seed(numberOfSimulatedGenes);
+                    id = id + 1;
+                }
+                numberOfCouples = allBornCreatures / 2;
+
+
+                if (allBornCreatures % 2 == 0)
+                {
+
+                    for (i = 0; i < allBornCreatures; i++)
+                    {
+                        for (int w = 0; w < 2; w++)
+                        {
+                            chosenCreature1 = randNum.Next(1, allBornCreatures + 1);
+                            chosenCreature2 = randNum.Next(1, allBornCreatures + 1);
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+
+                numberOfCouples = newCreatures / 2;
+            }
+        }
+        return seedsArray;
+    }
+}
+
+
+
 
 
 
