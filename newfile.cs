@@ -158,9 +158,9 @@ public class Settings
 
     public int[] generateRandomGenome(int numberOfSeedsGenes)
     {
-        Random randNumber = new Random();
         for (int i = 0; i < this.numberOfSeedsGenes; i++)
         {
+            Random randNumber = new Random();
             this.geneticConfiguration[i] = randNumber.Next(0, 3);
         }
 
@@ -170,7 +170,7 @@ public class Settings
     public int[] setSeedsGeneticConfiguration(int numberOfSeedsGenes)
     {
         Random randNumber = new Random();
-        Console.WriteLine("How do you want to configurate the Seeds genetics?");
+        Console.WriteLine("How do you want to configurate the seeds' genome?");
         Console.WriteLine("\n[1] Random\n[2] Custom\n[3] Back");
         int choose = int.Parse(Console.ReadLine());
         if (choose == 1)
@@ -311,23 +311,96 @@ public class Settings
 
 public class Simulation
     {
-        int passedGenerations = 0;
-        int numberOfCreaturesInThisGeneration;
-        public int generations;
-        int id;
-        int id2 = 2;
-        int allBornCreatures = 0;
-        int numberOfCouples = 1;
-        int totalNumberOfCreatures = 0;
-        int numberOfIndividualsThatDiedWithoutProcriating = 0;
-        int totalNumberOfCouples = 0;
-        int chosenCreature1 = 0;
-        int chosenCreature2 = 0;
-        int[] chosenCreaturesToCopulate = new int[1];
-        int newCreatures = 0;
+    public int actualGeneration = 0;
+    public int numberOfCreaturesInThisGeneration;
+    public int generations;
+    public int id;
+    public int id2 = id + 1;
+    public int[] allBornCreatures = new int[99999];
+    public int numberOfCouples;
+    public int newCreatures = 0;
+    public int[] couples = new int[99999];
+
+    public void copulesAndBirths(int numberOfCouples)
+    {
+        for (int j = 0; j < numberOfCouples; j++)
+        {
+            Random randomBirths = new Random();
+            int bornCreatures = randomBirths.Next(0, 6); //Generates a random number of born creatures for the next generation
+            for (int m = 0; m < bornCreatures; m++) //Creates an object for each born creature
+            {
+                Random numberRandom = new Random();
+                allBornCreatures = allBornCreatures + bornCreatures;
+                individualsArray[id] = new Individuals();
+                id = id + 1;
+            }
+        }
+    }
+
+    public void formCouples(int[] allBornCreatures, Individuals[] individualsArray)
+    {
+
+        if (this.allBornCreatures != 0) //Form couples with the current generations' creatures
+        {
+            numberOfCouples = allBornCreatures / 2;
+            if (this.allBornCreatures % 2 == 0) // Form couples with even number of creatures
+            {
+
+                for (i = 0; i < allBornCreatures; i++)
+                {
+                    for (int w = 0; w < 2; w++)
+                    {
+                        chosenCreature1 = randNum.Next(1, allBornCreatures.Length + 1);
+                        if(chosenCreature1)
+                        allBornCreatures[chosenCreature1] = 0;
+                        chosenCreature2 = randNum.Next(1, allBornCreatures.Length + 1);
+                        allBornCreatures[chosenCreature2] = 0;
+
+                    }
+                }
+            }
+            else //Form couples with odd number of creatures
+            {
+
+
+            }
+        }
+
+        else //Form the first couples with the seeds
+        {
+            if(individualsArray.Length % 2 == 0) // Form couples with even number of seeds
+            {
+
+
+            }
+
+            else // Form couples with odd number of seeds
+            {
+
+            }
+        }     
+    }
+
+    public void receivePairOfGenes() //Determines the genetic configuration of the creature
+    {
 
 
     }
+
+    public void startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray, int numberOfSeedsGenes) //receives individualsArray or individualsArray data
+    {
+        this.numberOfCouples = numberOfSeeds / 2;
+        Random randNum = new Random();
+        for (int i = 0; i < generations; i++)
+        {
+            actualGeneration = actualGeneration + 1;
+            Console.WriteLine("Generation = " + actualGeneration);
+            this.formCouples(this.allBornCreatures);
+            this.copulesAndBirths(this.numberOfCouples, couples);
+        }
+       
+    }
+}
 
 
 
