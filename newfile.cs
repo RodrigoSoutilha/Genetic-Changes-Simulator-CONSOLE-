@@ -9,12 +9,15 @@ public class Program
         settings.setNumberOfSeeds();
         settings.setSeedsNumberOfGenes();
         settings.setChosenGenes(settings.numberOfSeedsGenes);
+        settings.setSeedsGeneticConfiguration(settings.numberOfSeedsGenes);
+        settings.seedsConfirmation(settings.numberOfSeedsGenes, settings.numberOfSeeds, settings.geneticConfiguration);
         settings.setGenerations();
         Individuals[] individualsArray = new Individuals[9999999];
         settings.buildSeeds(settings.numberOfSeeds, settings.numberOfSeedsGenes, settings.chosenGenes, individualsArray);
         Console.WriteLine(individualsArray[5].chosenGenes[2]);        
         Console.WriteLine("end");
         Console.ReadLine();
+
     }
 }
 
@@ -32,7 +35,7 @@ public class Individuals
 public class Settings
 {
     public int numberOfChosenGenes;
-    public int[] geneticConfiguration;
+    public int[] geneticConfiguration = new int[999];
     public int[] chosenGenes = new int[900];
     public int numberOfSeeds;
     public int numberOfSeedsGenes;
@@ -65,12 +68,30 @@ public class Settings
         Console.Clear();
         return this.numberOfSeeds;
     }
+
     public int setSeedsNumberOfGenes()
     {
         Console.WriteLine("Type the number of genes you wanna work with");
+        Console.WriteLine("[0] Back");
         try
         {
             this.numberOfSeedsGenes = int.Parse(Console.ReadLine());
+            if (this.numberOfSeedsGenes == 0)
+            {
+                Console.Clear();
+                this.setNumberOfSeeds();
+                this.setSeedsNumberOfGenes();
+            }
+            else if (this.numberOfSeedsGenes < 0)
+            {
+                Console.Clear();
+                Console.WriteLine("You can't use negative values");
+                this.setSeedsNumberOfGenes();
+            }
+            else
+            {
+
+            }
         }
         catch
         {
@@ -107,24 +128,24 @@ public class Settings
 
     public int[] setChosenGenes(int numberOfSeedsGenes)
     {
-        int i = 0;
-        for (i = 0; i < this.numberOfSeedsGenes; i++)
+        for (int i = 0; i < this.numberOfSeedsGenes; i++)
         {
             Console.WriteLine("Choose genes\n");
             Console.WriteLine("[1] [2] [3] [4] [5] [6] [7] [8] [9] [10]\n\n [0] - BACK\n[00] - RESTART");
             Console.WriteLine(numberOfSeedsGenes - i + " more gene(s) to choose");
+            Console.WriteLine("index.: " + i);
             this.chosenGenes[i] = int.Parse(Console.ReadLine());
             if (this.chosenGenes[i] == 0)
             {
+                i = 0;
                 Console.Clear();
                 this.setSeedsNumberOfGenes();
-
+                this.setChosenGenes(this.numberOfSeedsGenes);
             }
             else if (this.chosenGenes[i] == 00)
             {
                 Console.Clear();
-                i = 0;
-                this.setChosenGenes(this.numberOfSeedsGenes);
+                i = -1;
             }
             else
             {
@@ -135,48 +156,48 @@ public class Settings
         return this.chosenGenes;
     }
 
-    public void setSeedsGeneticConfiguration(int[] chosenGenes)
+    public int[] generateRandomGenome(int numberOfSeedsGenes)
+    {
+        Random randNumber = new Random();
+        for (int i = 0; i < this.numberOfSeedsGenes; i++)
+        {
+            this.geneticConfiguration[i] = randNumber.Next(0, 3);
+        }
+
+        return this.geneticConfiguration;
+    }
+
+    public int[] setSeedsGeneticConfiguration(int numberOfSeedsGenes)
     {
         Random randNumber = new Random();
         Console.WriteLine("How do you want to configurate the Seeds genetics?");
-        Console.WriteLine("\n[1] Random\n[2] Custom");
-        this.choose = Console.ReadLine();
-        this.confirmationScreen();
-        if (this.choose == "1")
+        Console.WriteLine("\n[1] Random\n[2] Custom\n[3] Back");
+        int choose = int.Parse(Console.ReadLine());
+        if (choose == 1)
         {
-            if (this.choose == "Y")
-            {
-                Console.Clear();
-                for(int i = 0;i<this.numberOfChosenGenes;i++)
-                {
-                    this.geneticConfiguration[i] = randNumber.Next(0, 3);
-                }
-
-            }
-            else
-            {
-                Console.Clear();
-                this.setSeedsGeneticConfiguration(this.chosenGenes);
-            }
-
-
+            generateRandomGenome(this.numberOfSeedsGenes);
         }
-
-        
-
-        else if (this.choose == "N")
+      
+        else if (choose == 2)
         {
             Console.Clear();
             this.setNumberOfSeeds();
         }
-         
-        else
+
+        else if (choose == 3)
         {
-           Console.Clear();
-           Console.WriteLine("Enter a valid value\n");
-           this.setSeedsGeneticConfiguration(this.chosenGenes);
+            Console.Clear();
+            this.setChosenGenes(this.numberOfSeedsGenes);
         }
 
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a valid value\n");
+            this.setSeedsGeneticConfiguration(this.numberOfSeedsGenes);
+
+        }
+        return this.geneticConfiguration;
     }
 
     public void buildSeeds(int numberOfSeeds, int numberOfSeedsGenes, int[] chosenGenes, Individuals[] individualsArray)
@@ -184,10 +205,12 @@ public class Settings
         for (int i = 0; i < this.numberOfSeeds; i++)
         {
             individualsArray[i] = new Individuals();
-            for (int g=0; g < this.numberOfSeedsGenes; g++)
+            for (int g = 0; g < this.numberOfSeedsGenes; g++)
             {
                 individualsArray[i].chosenGenes[g] = this.chosenGenes[g];
+                individualsArray[i].geneticConfiguration[g] = this.geneticConfiguration[g];
             }
+
         }
     }
 
@@ -198,81 +221,118 @@ public class Settings
         return this.generations;
     }
 
-
-}
-
-
-
-public class Simulation
-{
-    int passedGenerations = 0;
-    int numberOfCreaturesInThisGeneration;
-    public int generations;
-    int id1;
-    int id2 = 2;
-    int allBornCreatures = 0;
-    int numberOfCouples = 1;
-    int totalNumberOfCreatures = 0;
-    int numberOfIndividualsThatDiedWithoutProcriating = 0;
-    int totalNumberOfCouples = 0;
-    int chosenCreature1 = 0;
-    int chosenCreature2 = 0;
-    int[] chosenCreaturesToCopulate = new int[1];
-    int newCreatures = 0;
-
-    public object[] startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray, int numberOfSimulatedGenes) //receives individualsArray or individualsArray data
+    public void seedsConfirmation(int numberOfSeedsGenes, int numberOfSeeds, int[] geneticConfiguration)
     {
-        int id = 0;
-        id = numberOfSeeds + 1;
-        numberOfCouples = numberOfSeeds / 2;
-        Random randNum = new Random();
-        for (int i = 0; i < generations - 3; i++)
+        int h;
+        int n;
+        int jumpLine = 0;
+        Console.Clear();
+        for (int k = 0; k < this.numberOfSeeds; k++)
         {
-            passedGenerations = passedGenerations + 1;
-            Console.WriteLine("Generation = " + passedGenerations);
-            Console.WriteLine("Number of creatures in this generation = " + allBornCreatures);
-            for (int j = 0; j < numberOfCouples; j++)
+            for (int j = 0; j < this.numberOfSeedsGenes; j++)
             {
-                Random randomBirths = new Random();
-                int bornCreatures = randomBirths.Next(0, 6); //Generates a random number of born creatures for the next generation
-                for (int m = 0; m < bornCreatures; m++) //Creates an object for each born creature
+                h = j + 1;
+                n = k + 1;
+                if (this.geneticConfiguration[j] == 0)
                 {
-                    Random numberRandom = new Random();
-                    allBornCreatures = allBornCreatures + bornCreatures;
-                    //até aqui ok 
-                    //generate all possible gametes for all creatures
-                    /*/public int generateGametes(individualsArray[id1],individualsArray[id2]){
-                    }
-                    /*/
-                    seedsArray[id] = new Seed(numberOfSimulatedGenes);
-                    id = id + 1;
-                }
-                numberOfCouples = allBornCreatures / 2;
-
-
-                if (allBornCreatures % 2 == 0)
-                {
-
-                    for (i = 0; i < allBornCreatures; i++)
+                    Console.WriteLine("Seed " + n + " gene " + h + " " + " = " + "Dominant homozygous (AA)");
+                    if (jumpLine == this.numberOfSeedsGenes - 1)
                     {
-                        for (int w = 0; w < 2; w++)
-                        {
-                            chosenCreature1 = randNum.Next(1, allBornCreatures + 1);
-                            chosenCreature2 = randNum.Next(1, allBornCreatures + 1);
-                        }
+                        Console.WriteLine("\n");
+                        jumpLine = 0;
+                    }
+                    else
+                    {
+                        jumpLine = jumpLine + 1;
                     }
                 }
+                else if (this.geneticConfiguration[j] == 1)
+                {
+                    Console.WriteLine("Seed " + n + " gene " + h + " " + " = " + "Heterozygous (Aa)");
+                    if (jumpLine == this.numberOfSeedsGenes - 1)
+                    {
+                        Console.WriteLine("\n");
+                        jumpLine = 0;
+                    }
+                    else
+                    {
+                        jumpLine = jumpLine + 1;
+                    }
+                }
+
+                else if (this.geneticConfiguration[j] == 2)
+                {
+                    Console.WriteLine("Seed " + n + " gene " + h + " " + " = " + "Recessive homozygous (aa)");
+                    if (jumpLine == this.numberOfSeedsGenes - 1)
+                    {
+                        Console.WriteLine("\n");
+                        jumpLine = 0;
+                    }
+                    else
+                    {
+                        jumpLine = jumpLine + 1;
+                    }
+                }
+
                 else
                 {
-
+                    Console.WriteLine("FATAL ERROR - Invalid value for geneticConfiguration");
                 }
-
-                numberOfCouples = newCreatures / 2;
             }
+
         }
-        return seedsArray;
+
+        Console.WriteLine("\n[1] OK\n[2] Generate another random genome\n[3] Back");
+        int choose = int.Parse(Console.ReadLine());
+        if (choose == 1)
+        {
+
+
+        }
+        else if (choose == 2)
+        {
+            generateRandomGenome(this.numberOfSeedsGenes);
+            seedsConfirmation(this.numberOfSeedsGenes, this.numberOfSeeds, this.geneticConfiguration);
+        }
+        else if (choose == 3)
+        {
+            setSeedsGeneticConfiguration(this.numberOfSeedsGenes);
+            seedsConfirmation(this.numberOfSeedsGenes, this.numberOfSeeds, this.geneticConfiguration);
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a valid value");
+            Console.ReadLine();
+        }
     }
+
 }
+
+public class Simulation
+    {
+        int passedGenerations = 0;
+        int numberOfCreaturesInThisGeneration;
+        public int generations;
+        int id;
+        int id2 = 2;
+        int allBornCreatures = 0;
+        int numberOfCouples = 1;
+        int totalNumberOfCreatures = 0;
+        int numberOfIndividualsThatDiedWithoutProcriating = 0;
+        int totalNumberOfCouples = 0;
+        int chosenCreature1 = 0;
+        int chosenCreature2 = 0;
+        int[] chosenCreaturesToCopulate = new int[1];
+        int newCreatures = 0;
+
+
+    }
+
+
+
+
+
 
 
 
