@@ -16,7 +16,10 @@ public class Program
         settings.setGenerations();
         Individuals[] individualsArray = new Individuals[9999999];
         settings.buildSeeds(settings.numberOfSeeds, settings.numberOfSeedsGenes, settings.chosenGenes, individualsArray);
-        simulation.startSimulation(settings.generations, settings.numberOfSeeds, individualsArray );
+        int counter = 0;
+        Console.WriteLine(counter);
+        Console.ReadKey();
+        simulation.startSimulation(settings.generations, settings.numberOfSeeds, individualsArray);
         Console.WriteLine("end");
         Console.ReadLine();
 
@@ -319,8 +322,9 @@ public class Simulation
     public int id2 = 1;
     public int[] allBornCreatures = new int[99999];
     public int numberOfCouples;
+    public int numberOfCreatures;
     public int newCreatures = 0;
-    public int[,][] couplesArray = new int[9999,9999][];
+    public int[,][] couplesArray = new int[9999, 9999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
 
     public void copulesAndBirths(int numberOfCouples, int[,][] couplesArray, Individuals[] individualsArray)
@@ -351,32 +355,33 @@ public class Simulation
 
     public int[,][] formCouples(int[,][] couplesArray, Individuals[] individualsArray, int numberOfSeeds)
     {
+        int[] remainingSeedsToChoose = new int[numberOfSeeds - (numberOfSeeds % 2)];
+        int randomIndividual1 = 0;
+        int randomIndividual2 = 0;
         Random randomNumber = new Random();
-        if (this.allBornCreatures.Length != 0) //Form couples with the current generations' creatures
+        if (this.allBornCreatures.GetLength(0) != 0) //Form couples with the current generations' creatures
         {
-   
 
-   
+
+
         }
 
         else //Form the first couples with the seeds
         {
-            int[] remainingSeedsToChoose = new int[numberOfSeeds - (numberOfSeeds % 2)];
-            int randomSeed1 = 0;
-            int randomSeed2 = 0;
+  
             int k;
-            for (int i = 0; i < numberOfSeeds - (numberOfSeeds%2); i++)
-            {   
+            for (int i = 0; i < numberOfSeeds - (numberOfSeeds % 2); i++)
+            {
                 k = i + 1;
-                chooseRandomSeed1(randomSeed1, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
-                this.couplesArray[i, i] = individualsArray[randomSeed1].geneticConfiguration;
-                chooseRandomSeed2(randomSeed2, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
-                this.couplesArray[k, k] = individualsArray[randomSeed2].geneticConfiguration;
+                chooseRandomSeed1(randomIndividual1, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
+                this.couplesArray[i, i] = individualsArray[randomIndividual1].geneticConfiguration;
+                chooseRandomSeed2(randomIndividual2, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
+                this.couplesArray[k, k] = individualsArray[randomIndividual2].geneticConfiguration;
             }
 
-            if (numberOfSeeds %2 == 1)
+            if (numberOfSeeds % 2 == 1)
             {
-                for(int i=0; i < numberOfSeeds % 2; i++)
+                for (int i = 0; i < numberOfSeeds % 2; i++)
                 {
                     numberOfCreaturesThatDiedWithoutProcriating = numberOfCreaturesThatDiedWithoutProcriating + 1;
                 }
@@ -419,7 +424,7 @@ public class Simulation
         {
             remainingSeedsToChoose[randomSeed2] = 0;
         }
-        else 
+        else
         {
             chooseRandomSeed2(randomSeed2, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
         }
@@ -438,11 +443,17 @@ public class Simulation
         for (int i = 0; i < generations; i++)
         {
             actualGeneration = actualGeneration + 1;
-            Console.WriteLine("Generation = " + actualGeneration);
-            Console.WriteLine("Total creatures number = " + individualsArray.Length);
+            for (int j = 0; j < individualsArray.Length; j++)
+            {
+                if (individualsArray[i] != null)
+                {
+                    this.numberOfCreatures = this.numberOfCreatures + 1;
+                    Console.WriteLine("Generation = " + actualGeneration + " " + "Total creatures number = " + this.numberOfCreatures);
+                }
+            }
             Console.ReadKey();
-            this.formCouples(this.couplesArray,individualsArray, numberOfSeeds);
-            this.numberOfCouples = this.couplesArray.GetLength / 2;
+            this.formCouples(this.couplesArray, individualsArray, numberOfSeeds);
+            this.numberOfCouples = this.couplesArray.Length / 2;
             this.copulesAndBirths(this.numberOfCouples, this.couplesArray, individualsArray);
         }
 
