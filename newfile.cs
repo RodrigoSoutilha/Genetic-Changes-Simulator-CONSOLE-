@@ -524,6 +524,7 @@ public class Simulation
         Random randNum = new Random();
         for (int i = 0; i < generations; i++)
         {
+            //make methods to reset arrays and variables
             actualGeneration = actualGeneration + 1;
             this.formCouples(this.couplesArray, individualsArray, numberOfSeeds, numberOfBornCreatures);
             getNumberOfCouples(this.couplesArray);
