@@ -318,7 +318,7 @@ public class Simulation
     public int generations;
     public int id;
     public int id2 = 1;
-    public int allBornCreatures = 0;
+    public int numberOfBornCreatures;
     public int numberOfCouples;
     public int numberOfCreatures;
     public int newCreatures = 0;
@@ -343,7 +343,7 @@ public class Simulation
             int bornCreatures = randomBirths.Next(0, 6); //Generates a random number of born creatures for the next generation
             for (int m = 0; m < bornCreatures; m++) //Creates an object for each born creature
             {
-                allBornCreatures = allBornCreatures + 1;
+                numberOfBornCreatures = numberOfBornCreatures + 1;
             }
             receivePairOfGenes(individual1, individual2, numberOfBornCreatures, individualsArray);
         }
@@ -363,7 +363,7 @@ public class Simulation
         int k;
         int u;
         Random randomNumber = new Random();
-        if (allBornCreatures != 0) //Form couples with the current generations' creatures
+        if (numberOfBornCreatures != 0) //Form couples with the current generations' creatures
         {
             for(int r=0;r<numberOfBornCreatures - (numberOfBornCreatures % 2); r++)
             {
