@@ -540,11 +540,22 @@ public class Simulation
                         {
                             parent1AlleleToDonate = false;
                         }
+                        else
+                        {
+                            Console.WriteLine("Error in buildNewSeeds method, line 545");
+                            Console.ReadLine();
+                        }
                     }
 
                     else if (parent1[0][u] == 2)
                     {
                         parent1AlleleToDonate = false;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 557");
+                        Console.ReadLine();
                     }
 
                 }
@@ -561,18 +572,36 @@ public class Simulation
                         b = randomAlleleToDonate.Next(0, 2);
                         if (b == 0)
                         {
-                            alleleToDonate = true;
+                            parent2AlleleToDonate = true;
                         }
                         else if (b == 1)
                         {
                             parent2AlleleToDonate = false;
                         }
+
+                        else
+                        {
+                            Console.WriteLine("Error in buildNewSeeds method, line 584");
+                            Console.ReadLine();
+                        }
                     }
 
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 591");
+                        Console.ReadLine();
+                    }
+               
                     else if (parent2[0][u] == 2)
                     {
                         parent2AlleleToDonate = false;
                     }
+                }
+
+                else
+                {
+                    Console.WriteLine("Error in buildNewSeeds method, line 603");
+                    Console.ReadLine();
                 }
 
                 //GeneticConfiguration assigning, based on the alleles donated
@@ -581,7 +610,12 @@ public class Simulation
                 {
                     if (parent1[0][u] != null && parent1[0][u] != null) // Certifies that when the genes end the assigning ends too
                     {
-                        individualsToReceiveGenes[i][u] == 0;
+                        individualsToReceiveGenes[i][u] = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 617");
+                        Console.ReadLine();
                     }
                 }
 
@@ -589,7 +623,12 @@ public class Simulation
                 {
                     if (parent1[0][u] != null && parent1[0][u] != null)
                     {
-                        individualsToReceiveGenes[i][u] == 2;
+                        individualsToReceiveGenes[i][u] = 2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 630");
+                        Console.ReadLine();
                     }
                 }
 
@@ -599,6 +638,11 @@ public class Simulation
                     {
                         individualsToReceiveGenes[i][u] = 1;
                     }
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 643");
+                        Console.ReadLine();
+                    }
                 }
 
                 else if (parent1AlleleToDonate == false && parent2AlleleToDonate == true)
@@ -607,18 +651,20 @@ public class Simulation
                     {
                         individualsToReceiveGenes[i][u] = 1;
                     }
+                    else
+                    {
+                        Console.WriteLine("Error in buildNewSeeds method, line 656");
+                        Console.ReadLine();
+                    }
                 }
 
-
-
+                else
+                {
+                    Console.WriteLine("Error in buildNewSeeds method, line 663");
+                    Console.ReadLine();
+                }
             }
-                
-
-                
-
-
         }
-
         return individualsToReceiveGenes;
     }
 
