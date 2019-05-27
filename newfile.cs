@@ -327,14 +327,14 @@ public class Simulation
     public int numberOfBornCreatures;
     public int numberOfCouples;
     public int numberOfCreatures;
-    public int[][] individualsOfCurrentGeneration = new int[99999][];
-    public int[][] individualsToReceiveGenes = new int[99999][];
+    public int?[][] individualsOfCurrentGeneration = new int?[99999][];
+    public int?[][] individualsToReceiveGenes = new int?[99999][];
     public int newCreatures = 0;
     public int?[][] couplesArray = new int?[99999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
     bool seedsCouplesFormed = false;
 
-    public int[][] copulesAndBirths(int numberOfCouples, int?[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures)
+    public int?[][] copulesAndBirths(int numberOfCouples, int?[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures)
     {
         //start making the allBornCreatures array fully null
         int numberOfCreaturesToReceiveGenes = 0;
@@ -396,10 +396,10 @@ public class Simulation
         return individualsOfCurrentGeneration;
     }
 
-    public int?[][] formCouples(int?[][] couplesArray, Individuals[] individualsArray, int numberOfSeeds, int numberOfBornCreatures)
+    public int?[][] formCouples(int?[][] couplesArray, Individuals[] individualsArray, int numberOfSeeds, int numberOfBornCreatures, int?[][] individualsOfCurrentGeneration)
     {
         int?[] remainingSeedsToChoose = new int?[(numberOfSeeds - (numberOfSeeds % 2) + 2)];
-        int?[] remainingIndividualsToChoose = new int?[(numberOfBornCreatures - (numberOfBornCreatures % 2)) - 1];
+        int?[] remainingIndividualsToChoose = new int?[(numberOfBornCreatures - (numberOfBornCreatures % 2)) + 9999];
         int randomIndividual = 0;
         int randomSeed = 0;
         Random randomNumber = new Random();
@@ -407,9 +407,9 @@ public class Simulation
 
         if (numberOfBornCreatures != 0) //Form couples with the current generations' creatures
         {
-            for (int v = 0; v < numberOfBornCreatures; v++) //Fill the reamainingIndividualsToChoose array
+            for (int v = 0; v < this.numberOfBornCreatures; v++) //Fill the reamainingIndividualsToChoose array
             {
-                remainingIndividualsToChoose[v] = individualsArray[id].index; // ajeitar    
+                remainingIndividualsToChoose[v] = v; // ajeitar    
             }
 
             for (int r = 0; r < numberOfBornCreatures - (numberOfBornCreatures % 2); r++)
@@ -417,7 +417,7 @@ public class Simulation
                 Console.WriteLine("picking random creature " + r + "  to form couples");
                 Console.ReadKey();
                 chooseRandomIndividual(randomIndividual, numberOfBornCreatures, individualsArray, this.couplesArray, remainingIndividualsToChoose);
-                this.couplesArray[r] = individualsArray[randomIndividual].geneticConfiguration;
+                this.couplesArray[r] = individualsOfCurrentGeneration[randomIndividual];
             }
 
             if (numberOfBornCreatures % 2 == 1)
@@ -455,7 +455,7 @@ public class Simulation
             }
         }
 
-        // reset remainingIndividualsToChoose array and lock the other iteration
+        // reset remainingIndividualsToChoose and remainingIndividualsToChoose array and lock the other iteration
 
         for(int a=0; a<remainingIndividualsToChoose.Length;a++)
         {
@@ -509,7 +509,7 @@ public class Simulation
 
 
 
-    public int[][] buildNewIndividuals(int?[][] parent1, int?[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
+    public int?[][] buildNewIndividuals(int?[][] parent1, int?[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int?[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
     {
         bool parent1AlleleToDonate = false;
         bool parent2AlleleToDonate = false;
@@ -586,11 +586,7 @@ public class Simulation
                         }
                     }
 
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 591");
-                        Console.ReadLine();
-                    }
+                    
                
                     else if (parent2[0][u] == 2)
                     {
@@ -610,7 +606,7 @@ public class Simulation
                 {
                     if (parent1[0][u] != null && parent1[0][u] != null) // Certifies that when the genes end the assigning ends too
                     {
-                        individualsToReceiveGenes[i][u] = 0;
+                        individualsToReceiveGenes[i][u] = 5;
                     }
                     else
                     {
@@ -732,7 +728,7 @@ public class Simulation
         for (int i = 0; i < generations; i++)
         {
             actualGeneration = actualGeneration + 1;
-            this.formCouples(this.couplesArray, individualsArray, numberOfSeeds, numberOfBornCreatures); //Form random couples
+            this.formCouples(this.couplesArray, individualsArray, numberOfSeeds, numberOfBornCreatures, individualsOfCurrentGeneration); //Form random couples
             this.numberOfBornCreatures = 0; //Reset the number of born creatures
             getNumberOfCouples(this.couplesArray); //Get the number of couples
             getNumberOfCreatures(individualsArray); //Get the total number of creatures
