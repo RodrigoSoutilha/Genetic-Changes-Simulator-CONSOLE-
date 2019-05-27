@@ -32,9 +32,12 @@ public class Individuals
     public int numberOfChosenGenes;
     public int numberOfSeeds;
     public int numberOfSeedsGenes;
-    public int index;
+    public int index { get; set; }
 
-   
+    public Individuals()
+    {
+        this.index = this.index + 1;
+    }
 }
 
 
@@ -369,7 +372,7 @@ public class Simulation
                 }
             }
 
-            for (int y=0;y<parent1.Length;y++) // reset individual1 array to receive the next parent 1
+            for (int y=0;y<parent1.Length;y++) // reset parent1 array to receive the next parent 1
             {
                 if (parent1[y] != null)
                 {
@@ -377,7 +380,7 @@ public class Simulation
                 }
             }
 
-            for (int z=0; z<parent2.Length;z++) //reset individual2 array to receive the next parent 2
+            for (int z=0; z<parent2.Length;z++) //reset parent2 array to receive the next parent 2
             {
                 if (parent2[z] != null)
                 {
@@ -493,13 +496,54 @@ public class Simulation
 
     public int[][] buildNewIndividuals(int[][] parent1, int[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
     {
-        Random randomGeneToDonate = new Random();
-        int[] genome = new int[99999999999];
-        int gene = 0;
+        Random randomAlleleToDonate = new Random();
         for(int i=0; i<numberOfCreaturesToReceiveGenes;i++)
         {
-            gene = parent1[randomGeneToDonate.Next(1, 4)];
-            individualsToReceiveGenes[1] = genome;
+           for(int j=0;j<parent1.Length;j++) //Randomly chooses one allel of parent 1 from each genetic pair
+            {
+                if(parent1[j] != null)
+                {
+                    for(int f=0;f<parent1[0].Length;)
+                    if(parent1[0] == )
+                    {
+
+                    }
+
+                    else if(parent1[j] == 1)
+                    {
+
+                    }
+
+                    else if(parent1[j] == 2)
+                    {
+
+                    }
+
+                }
+                
+            }
+           for(int k=0;k<parent2.Length;k++) //Randomly chooses one allel of parent 2 from each genetic pair
+            {
+                if(parent2[k] != null)
+                {
+                    if(parent2[0] == 0)
+                    {
+
+                    }
+
+                    else if (parent2[0] == 1)
+                    {
+
+                    }
+
+                    else if (parent2[0] == 2)
+                    {
+
+                    }
+
+                }
+            }
+            
         }
 
         return individualsToReceiveGenes;
@@ -565,6 +609,7 @@ public class Simulation
     public void startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray) //receives individualsArray or individualsArray data
     {
         Random randNum = new Random();
+        int id = numberOfSeeds;
         for (int i = 0; i < generations; i++)
         {
             actualGeneration = actualGeneration + 1;
