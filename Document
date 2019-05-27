@@ -1,9 +1,7 @@
-0 = AA
-1 = Aa
-2 = aa
-3 = aa
-
+0 = AA (Homozygous dominant)
+1 = Aa (Heterozygous)
+2 = aa (Homozygous recessive)
 -----------
 
-true = A
-false = a
+true = A (Dominant allele)
+false = a (Recessive allele)
