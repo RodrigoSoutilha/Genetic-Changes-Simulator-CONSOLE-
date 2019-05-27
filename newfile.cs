@@ -324,6 +324,8 @@ public class Simulation
     public int numberOfBornCreatures;
     public int numberOfCouples;
     public int numberOfCreatures;
+    public int [] individualsOfCurrentGeneration = new int[99999];
+    public int[] individualsToReceiveGenes = new int[99999];
     public int newCreatures = 0;
     public int[][] couplesArray = new int[99999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
@@ -348,8 +350,21 @@ public class Simulation
                 numberOfBornCreatures = numberOfBornCreatures + 1;
                 numberOfCreaturesToReceiveGenes = numberOfCreaturesToReceiveGenes + 1;   
             }
-            buildNewIndividuals(individual1, individual2, numberOfCreaturesToReceiveGenes, individualsArray);
-            numberOfCreaturesToReceiveGenes = 0;
+            buildNewIndividuals(individual1, individual2, numberOfCreaturesToReceiveGenes, individualsArray, individualsToReceiveGenes);
+            for (int j=0; j<numberOfCreaturesToReceiveGenes;j++) //pass the genes to the array of the creatures of the current generation
+            {
+                individualsOfCurrentGeneration[j] = individualsToReceiveGenes[j];
+            }
+
+            for (int h=0;h<individualsToReceiveGenes.Length;h++)  //reset individualsToReceiveGenes array, to be able to receive the next brooding's genes
+            {
+                if(individualsToReceiveGenes[h] != 0)
+                {
+                    individualsToReceiveGenes[h] = 0;
+                }
+            }
+                
+            numberOfCreaturesToReceiveGenes = 0; //reset the variable to receive the number of creatures in the next brooding
         }
         Console.WriteLine("Births");
         Console.ReadKey();
@@ -454,11 +469,14 @@ public class Simulation
 
     
 
-    public Individuals[] buildNewIndividuals(int[][] individual1, int[][] individual2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray) //Determines the genetic configuration of the creature
+    public int[] buildNewIndividuals(int[][] individual1, int[][] individual2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[] individualsToReceiveGenes) //Determines the genetic configuration of the creature
     {
+        for(int i=0; i<numberOfCreaturesToReceiveGenes;i++)
+        {
+            
+        }
 
-
-        return individualsOfCurrentGeneration;
+        return individualsToReceiveGenes;
     }
 
     public int getNumberOfCouples(int[][] couplesArray)
