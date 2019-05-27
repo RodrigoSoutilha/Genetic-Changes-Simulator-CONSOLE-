@@ -499,37 +499,41 @@ public class Simulation
         Random randomAlleleToDonate = new Random();
         for (int i = 0; i < numberOfCreaturesToReceiveGenes; i++)
         {
-            if (parent1[0][i] != 0)  //Randomly chooses one allel of parent 1 from each genetic pair
+
+            for(int u=0; u<parent1[0].Length;u++) //Randomly chooses one allel of parent 1 from each genetic pair
+            //parent1[0].Length is the total size of geneticConfiguration array size
+            if (parent1[0][u] != null)  
             {
-                if (parent1[0][i] == 0)
+                if (parent1[0][u] == 0)
+                {
+                    
+                }
+
+                else if (parent1[0][u] == 1)
                 {
 
                 }
 
-                else if (parent1[0][i] == 1)
-                {
-
-                }
-
-                else if (parent1[0][i] == 2)
+                else if (parent1[0][u] == 2)
                 {
 
                 }
             }
 
-            if (parent2[0][i] != 0)  //Randomly chooses one allel of parent 2 from each genetic pair
+            for(int v=0;v<parent2[0].Length;v++)  //Randomly chooses one allel of parent 2 from each genetic pair
+            if (parent2[0][v] != 0) 
             {
-                if (parent2[0][i] == 0)
+                if (parent2[0][v] == 0)
                 {
 
                 }
 
-                else if (parent2[0][i] == 1)
+                else if (parent2[0][v] == 1)
                 {
 
                 }
 
-                else if (parent2[0][i] == 2)
+                else if (parent2[0][v] == 2)
                 {
 
                 }
