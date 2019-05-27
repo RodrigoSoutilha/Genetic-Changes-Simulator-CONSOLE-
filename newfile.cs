@@ -497,52 +497,45 @@ public class Simulation
     public int[][] buildNewIndividuals(int[][] parent1, int[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
     {
         Random randomAlleleToDonate = new Random();
-        for(int i=0; i<numberOfCreaturesToReceiveGenes;i++)
+        for (int i = 0; i < numberOfCreaturesToReceiveGenes; i++)
         {
-           for(int j=0;j<parent1.Length;j++) //Randomly chooses one allel of parent 1 from each genetic pair
+            if (parent1[0][i] != 0)  //Randomly chooses one allel of parent 1 from each genetic pair
             {
-                if(parent1[j] != null)
+                if (parent1[0][i] == 0)
                 {
-                    for(int f=0;f<parent1[0].Length;)
-                    if(parent1[0] == )
-                    {
-
-                    }
-
-                    else if(parent1[j] == 1)
-                    {
-
-                    }
-
-                    else if(parent1[j] == 2)
-                    {
-
-                    }
 
                 }
-                
-            }
-           for(int k=0;k<parent2.Length;k++) //Randomly chooses one allel of parent 2 from each genetic pair
-            {
-                if(parent2[k] != null)
+
+                else if (parent1[0][i] == 1)
                 {
-                    if(parent2[0] == 0)
-                    {
 
-                    }
+                }
 
-                    else if (parent2[0] == 1)
-                    {
-
-                    }
-
-                    else if (parent2[0] == 2)
-                    {
-
-                    }
+                else if (parent1[0][i] == 2)
+                {
 
                 }
             }
+
+            if (parent2[0][i] != 0)  //Randomly chooses one allel of parent 2 from each genetic pair
+            {
+                if (parent2[0][i] == 0)
+                {
+
+                }
+
+                else if (parent2[0][i] == 1)
+                {
+
+                }
+
+                else if (parent2[0][i] == 2)
+                {
+
+                }
+
+            }
+        
             
         }
 
