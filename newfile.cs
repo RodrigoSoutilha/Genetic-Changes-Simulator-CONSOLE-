@@ -324,50 +324,72 @@ public class Simulation
     public int numberOfBornCreatures;
     public int numberOfCouples;
     public int numberOfCreatures;
-    public int [] individualsOfCurrentGeneration = new int[99999];
-    public int[] individualsToReceiveGenes = new int[99999];
+    public int [][] individualsOfCurrentGeneration = new int[99999][];
+    public int[][] individualsToReceiveGenes = new int[99999][];
     public int newCreatures = 0;
     public int[][] couplesArray = new int[99999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
 
-    public void copulesAndBirths(int numberOfCouples, int[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures)
+    public int[][] copulesAndBirths(int numberOfCouples, int[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures)
     {
         //start making the allBornCreatures array fully null
         int numberOfCreaturesToReceiveGenes = 0;
         int k = 0;
-        int[][] individual1 = new int[999999][];
-        int[][] individual2 = new int[999999][];
+        int[][] parent1 = new int[999999][];
+        int[][] parent2 = new int[999999][];
         for (int i = 0; i < numberOfCouples; i++)
         {
             k = i + 1;
             Console.WriteLine("Generating births");
             //set a couple to have children
-            individual1[0] = couplesArray[i];
-            individual2[0] = couplesArray[k];
+            parent1[0] = couplesArray[i];
+            parent2[0] = couplesArray[k];
             Random randomBirths = new Random();
             for (int m = 0; m < randomBirths.Next(1,7); m++) //Creates an object for each born creature
             {
                 numberOfBornCreatures = numberOfBornCreatures + 1;
                 numberOfCreaturesToReceiveGenes = numberOfCreaturesToReceiveGenes + 1;   
             }
-            buildNewIndividuals(individual1, individual2, numberOfCreaturesToReceiveGenes, individualsArray, individualsToReceiveGenes);
+
+            buildNewIndividuals(parent1, parent2, numberOfCreaturesToReceiveGenes, individualsArray, individualsToReceiveGenes);
+
             for (int j=0; j<numberOfCreaturesToReceiveGenes;j++) //pass the genes to the array of the creatures of the current generation
             {
-                individualsOfCurrentGeneration[j] = individualsToReceiveGenes[j];
+                if (individualsOfCurrentGeneration != null)
+                {
+                    individualsOfCurrentGeneration[j] = individualsToReceiveGenes[j];
+                }
             }
 
             for (int h=0;h<individualsToReceiveGenes.Length;h++)  //reset individualsToReceiveGenes array, to be able to receive the next brooding's genes
             {
-                if(individualsToReceiveGenes[h] != 0)
+                if(individualsToReceiveGenes[h] != null)
                 {
-                    individualsToReceiveGenes[h] = 0;
+                    individualsToReceiveGenes[h] = null;
+                }
+            }
+
+            for (int y=0;y<parent1.Length;y++) // reset individual1 array to receive the next parent 1
+            {
+                if (parent1[y] != null)
+                {
+                    parent1[y] = null;
+                }
+            }
+
+            for (int z=0; z<parent2.Length;z++) //reset individual2 array to receive the next parent 2
+            {
+                if (parent2[z] != null)
+                {
+                    parent2[z] = null;
                 }
             }
                 
             numberOfCreaturesToReceiveGenes = 0; //reset the variable to receive the number of creatures in the next brooding
         }
-        Console.WriteLine("Births");
+        Console.WriteLine("Births finalized");
         Console.ReadKey();
+        return individualsOfCurrentGeneration;
     }
 
     public int[][] formCouples(int[][] couplesArray, Individuals[] individualsArray, int numberOfSeeds, int numberOfBornCreatures)
@@ -469,11 +491,15 @@ public class Simulation
 
     
 
-    public int[] buildNewIndividuals(int[][] individual1, int[][] individual2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[] individualsToReceiveGenes) //Determines the genetic configuration of the creature
+    public int[][] buildNewIndividuals(int[][] parent1, int[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
     {
+        Random randomGeneToDonate = new Random();
+        int[] genome = new int[99999999999];
+        int gene = 0;
         for(int i=0; i<numberOfCreaturesToReceiveGenes;i++)
         {
-            
+            gene = parent1[randomGeneToDonate.Next(1, 4)];
+            individualsToReceiveGenes[1] = genome;
         }
 
         return individualsToReceiveGenes;
