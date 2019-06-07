@@ -155,5 +155,8 @@ int main()
     Simulation simulation;
     settings.setNumberOfSeeds();
     settings.setNumberOfSeedsGenes();
-    settings.setChosenGenes(settings.numberOfChosenGenes);
+    settings.setChosenGenes(settings.numberOfSeedsGenes);
+    settings.seedsGeneticConfiguration(settings.numberOfSeedsGenes);
+    settings.seedsConfirmation(settings.numberOfSeedsGenes, settings.numberOfSeeds, settings.geneticConfiguration);
+    settings.setGenerations();
 }
