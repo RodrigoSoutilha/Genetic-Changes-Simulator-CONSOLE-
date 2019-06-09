@@ -17,7 +17,7 @@ public class Program
         Individuals[] individualsArray = new Individuals[9999999];
         settings.buildSeeds(settings.numberOfSeeds, settings.numberOfSeedsGenes, settings.chosenGenes, individualsArray);
         Console.Clear();
-        simulation.startSimulation(settings.generations, settings.numberOfSeeds, individualsArray);
+        simulation.startSimulation(settings.generations, settings.numberOfSeeds, individualsArray, settings.numberOfSeedsGenes);
         Console.WriteLine("end");
         Console.ReadLine();
 
@@ -328,26 +328,36 @@ public class Simulation
     public int numberOfCouples;
     public int numberOfCreatures;
     public int?[][] individualsOfCurrentGeneration = new int?[99999][];
-    public int?[][] individualsToReceiveGenes = new int?[99999][];
+    public int?[][] builtIndividualsFromCurrentCouple = new int?[99999][];
     public int newCreatures = 0;
     public int?[][] couplesArray = new int?[99999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
     bool seedsCouplesFormed = false;
 
-    public int?[][] copulesAndBirths(int numberOfCouples, int?[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures)
+    public int?[][] copulesAndBirths(int numberOfCouples, int?[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures, int numberOfSeedsGenes)
     {
         //start making the allBornCreatures array fully null
+        Random randomCouple = new Random();
         int numberOfCreaturesToReceiveGenes = 0;
-        int k = 0;
-        int?[][] parent1 = new int?[999999][];
-        int?[][] parent2 = new int?[999999][];
+        int parent1 = 0;
+        int parent2 = 0;
+        int?[] chosenParent1 = new int?[9999];
+        int?[] chosenParent2 = new int?[9999];
+        int?[] newIndividual = new int?[numberOfSeedsGenes];
         for (int i = 0; i < numberOfCouples; i++)
         {
-            k = i + 1;
             Console.WriteLine("Generating births");
             //set a couple to have children
-            parent1[0] = couplesArray[i];
-            parent2[0] = couplesArray[k];
+            parent1 = chooseRandomCouple(parent1, couplesArray);
+            parent2 = parent1 + 1;
+            for (int l = 0; l < numberOfSeedsGenes; l++)
+            {
+                chosenParent1[l] = couplesArray[parent1][l];
+                chosenParent2[l] = couplesArray[parent2][l];
+            }
+            
+            //couplesArray[parent1];
+            //couplesArray[parent2];
             Random randomBirths = new Random();
             for (int m = 0; m < randomBirths.Next(1, 7); m++) //Creates an object for each born creature
             {
@@ -355,39 +365,58 @@ public class Simulation
                 numberOfCreaturesToReceiveGenes = numberOfCreaturesToReceiveGenes + 1;
             }
 
-            buildNewIndividuals(parent1, parent2, numberOfCreaturesToReceiveGenes, individualsArray, individualsToReceiveGenes);
 
-            for (int j = 0; j < numberOfCreaturesToReceiveGenes; j++) //pass the genes to the array of the creatures of the current generation
+            for (int w = 0; w < numberOfCreaturesToReceiveGenes; w++)
+            {
+                builtIndividualsFromCurrentCouple[0] = buildNewIndividual(chosenParent1, chosenParent2, numberOfCreaturesToReceiveGenes, individualsArray, newIndividual);
+                for (int b = 0; b < newIndividual.Length; b++)
+                {
+                    if (newIndividual != null)
+                    {
+                        newIndividual[b] = null;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+
+            for (int j = 0; j < numberOfCreaturesToReceiveGenes; j++) //pass the individuals from builtIndividualsFromCurrentCouple to individualsOfCurrentGeneration
             {
                 if (individualsOfCurrentGeneration != null)
                 {
-                    individualsOfCurrentGeneration[j] = individualsToReceiveGenes[j];
+                    individualsOfCurrentGeneration[j] = builtIndividualsFromCurrentCouple[j];
                 }
             }
 
-            for (int h = 0; h < individualsToReceiveGenes.Length; h++)  //reset individualsToReceiveGenes array, to be able to receive the next brooding's genes
+            for (int h = 0; h < builtIndividualsFromCurrentCouple.Length; h++)  //reset individualsToReceiveGenes array, to be able to receive the next brooding's genes
             {
-                if (individualsToReceiveGenes[h] != null)
+                if (builtIndividualsFromCurrentCouple[h] != null)
                 {
-                    individualsToReceiveGenes[h] = null;
+                    builtIndividualsFromCurrentCouple[h] = null;
                 }
             }
 
-            for (int y = 0; y < parent1.Length; y++) // reset parent1 array to receive the next parent 1
+            for (int y = 0; y < chosenParent1.Length; y++) // reset chosenParent1 array to receive the next chosen parent 1
             {
-                if (parent1[y] != null)
+                if (chosenParent1[y] != null)
                 {
-                    parent1[y] = null;
+                    chosenParent1[y] = null;
                 }
             }
 
-            for (int z = 0; z < parent2.Length; z++) //reset parent2 array to receive the next parent 2
+            for (int z = 0; z < chosenParent2.Length; z++) //reset chosenParent2 array to receive the next chosen parent 2
             {
-                if (parent2[z] != null)
+                if (chosenParent2[z] != null)
                 {
-                    parent2[z] = null;
+                    chosenParent2[z] = null;
                 }
             }
+
+            
+            parent1 = 0;
+            parent2 = 0;
 
             numberOfCreaturesToReceiveGenes = 0; //reset the variable to receive the number of creatures in the next brooding
         }
@@ -416,7 +445,7 @@ public class Simulation
             {
                 Console.WriteLine("picking random creature " + r + "  to form couples");
                 Console.ReadKey();
-                chooseRandomIndividual(randomIndividual, numberOfBornCreatures, individualsArray, this.couplesArray, remainingIndividualsToChoose);
+                randomIndividual = chooseRandomIndividual(randomIndividual, numberOfBornCreatures, individualsArray, this.couplesArray, remainingIndividualsToChoose);
                 this.couplesArray[r] = individualsOfCurrentGeneration[randomIndividual];
             }
 
@@ -439,13 +468,13 @@ public class Simulation
             {
                 Console.WriteLine("picking random seed" + i + " to form couples");
                 Console.ReadKey();
-                chooseRandomSeed(randomSeed, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
+                randomSeed = chooseRandomSeed(randomSeed, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
                 this.couplesArray[i] = individualsArray[randomSeed].geneticConfiguration;
             }
 
             if (numberOfSeeds % 2 == 1)
-            {   
-                   this.numberOfCreaturesThatDiedWithoutProcriating = this.numberOfCreaturesThatDiedWithoutProcriating + 1;                
+            {
+                this.numberOfCreaturesThatDiedWithoutProcriating = this.numberOfCreaturesThatDiedWithoutProcriating + 1;
             }
 
             else
@@ -457,17 +486,34 @@ public class Simulation
 
         // reset remainingIndividualsToChoose and remainingIndividualsToChoose array and lock the other iteration
 
-        for(int a=0; a<remainingIndividualsToChoose.Length;a++)
+        for (int a = 0; a < remainingIndividualsToChoose.Length; a++)
         {
             remainingIndividualsToChoose[a] = null;
         }
 
-        for(int b=0; b<remainingSeedsToChoose.Length;b++)
+        for (int b = 0; b < remainingSeedsToChoose.Length; b++)
         {
             remainingSeedsToChoose[b] = null;
         }
 
         return this.couplesArray;
+    }
+
+    public int chooseRandomCouple(int parent1, int?[][]couplesArray)
+    {
+        Random randomCouple = new Random();
+        parent1 = randomCouple.Next(0, couplesArray.Length);
+        if (couplesArray[parent1][90] == 1)
+        {
+            couplesArray[parent1] = null;
+            couplesArray[parent1 + 1] = null;
+        }
+        else
+        {
+            chooseRandomCouple(parent1, couplesArray);
+        }
+
+        return parent1;
     }
 
     public int chooseRandomIndividual(int randomIndividual, int allBornCreatures, Individuals[] individualsArray, int?[][] couplesArray, int?[] remainingIndividualsToChoose)
@@ -509,159 +555,33 @@ public class Simulation
 
 
 
-    public int?[][] buildNewIndividuals(int?[][] parent1, int?[][] parent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int?[][] individualsToReceiveGenes) //Determines the genetic configuration of the creature
+    public int?[] buildNewIndividual(int?[] chosenParent1, int?[] chosenParent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int?[] newIndividual, int numberOfSeedsGenes) //Determines the genetic configuration of the creature
     {
-        bool parent1AlleleToDonate = false;
-        bool parent2AlleleToDonate = false;
-        int a;
-        int b;
-        Random randomAlleleToDonate = new Random();
-        for (int i = 0; i < numberOfCreaturesToReceiveGenes; i++) //each iteration is a different creature
+        Random chooseRandomAllele = new Random();
+        bool parent1AlleleToDonate;
+        bool parent2AlleleToDonate;
+
+        for (int h=0; h<numberOfSeedsGenes;h++)
         {
+            if (chosenParent1[h] == 0) // Chooses
+            {
+                parent1AlleleToDonate
+            }
+            else
+            {
 
-            for (int u = 0; u < parent1[0].Length; u++) //Randomly chooses one allel of parent 1 from each genetic pair //each iteration is a different gene
-            {                                            //parent1[0].Length is the total size of geneticConfiguration array size
-                if (parent1[0][u] != null)
-                {
-                    if (parent1[0][u] == 0)
-                    {
-                        parent1AlleleToDonate = true;
-                    }
+            }
+            if (chooseRandomAllele.Next(0, 2) == 1)
+            {
 
-                    else if (parent1[0][u] == 1)
-                    {
-                        a = randomAlleleToDonate.Next(0, 1);
+            }
+            else
+            {
 
-                        if (a == 0)
-                        {
-                            parent1AlleleToDonate = true;
-                        }
-                        else if (a == 1)
-                        {
-                            parent1AlleleToDonate = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Error in buildNewSeeds method, line 545");
-                            Console.ReadLine();
-                        }
-                    }
-
-                    else if (parent1[0][u] == 2)
-                    {
-                        parent1AlleleToDonate = false;
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 557");
-                        Console.ReadLine();
-                    }
-
-                }
-
-                if (parent2[0][u] != null)
-                {
-                    if (parent2[0][u] == 0)
-                    {
-                        parent2AlleleToDonate = true;
-                    }
-
-                    else if (parent2[0][u] == 1)
-                    {
-                        b = randomAlleleToDonate.Next(0, 2);
-                        if (b == 0)
-                        {
-                            parent2AlleleToDonate = true;
-                        }
-                        else if (b == 1)
-                        {
-                            parent2AlleleToDonate = false;
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("Error in buildNewSeeds method, line 584");
-                            Console.ReadLine();
-                        }
-                    }
-
-                    
-               
-                    else if (parent2[0][u] == 2)
-                    {
-                        parent2AlleleToDonate = false;
-                    }
-                }
-
-                else
-                {
-                    Console.WriteLine("Error in buildNewSeeds method, line 603");
-                    Console.ReadLine();
-                }
-
-                //GeneticConfiguration assigning, based on the alleles donated
-
-                if (parent1AlleleToDonate && parent2AlleleToDonate == true)
-                {
-                    if (parent1[0][u] != null && parent1[0][u] != null) // Certifies that when the genes end the assigning ends too
-                    {
-                        individualsToReceiveGenes[i][u] = 5;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 617");
-                        Console.ReadLine();
-                    }
-                }
-
-                else if (parent1AlleleToDonate && parent2AlleleToDonate == false)
-                {
-                    if (parent1[0][u] != null && parent1[0][u] != null)
-                    {
-                        individualsToReceiveGenes[i][u] = 2;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 630");
-                        Console.ReadLine();
-                    }
-                }
-
-                else if (parent1AlleleToDonate == true && parent2AlleleToDonate == false)
-                {
-                    if (parent1[0][u] != null && parent1[0][u] != null)
-                    {
-                        individualsToReceiveGenes[i][u] = 1;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 643");
-                        Console.ReadLine();
-                    }
-                }
-
-                else if (parent1AlleleToDonate == false && parent2AlleleToDonate == true)
-                {
-                    if (parent1[0][u] != null && parent1[0][u] != null)
-                    {
-                        individualsToReceiveGenes[i][u] = 1;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error in buildNewSeeds method, line 656");
-                        Console.ReadLine();
-                    }
-                }
-
-                else
-                {
-                    Console.WriteLine("Error in buildNewSeeds method, line 663");
-                    Console.ReadLine();
-                }
             }
         }
-        return individualsToReceiveGenes;
+
+        return newIndividual;
     }
 
     public int getNumberOfCouples(int?[][] couplesArray)
@@ -721,7 +641,7 @@ public class Simulation
     }
 
 
-    public void startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray) //receives individualsArray or individualsArray data
+    public void startSimulation(int generations, int numberOfSeeds, Individuals[] individualsArray, int numberOfSeedsGenes) //receives individualsArray or individualsArray data
     {
         Random randNum = new Random();
         int id = numberOfSeeds;
@@ -734,7 +654,7 @@ public class Simulation
             getNumberOfCreatures(individualsArray); //Get the total number of creatures
             Console.WriteLine("Generation = " + actualGeneration + "   Number of creatures = " + this.numberOfCreatures + "   Number of couples = " + this.numberOfCouples);
             Console.ReadKey();
-            this.copulesAndBirths(this.numberOfCouples, this.couplesArray, individualsArray, numberOfBornCreatures);
+            this.copulesAndBirths(this.numberOfCouples, this.couplesArray, individualsArray, numberOfBornCreatures, numberOfSeedsGenes);
             this.resetCouplesArray(this.couplesArray, this.numberOfCouples); //Reset the couples array
             getNumberOfCouples(this.couplesArray);
             Console.WriteLine("new generation? [Press any key]");
