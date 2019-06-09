@@ -333,6 +333,8 @@ public class Simulation
     public int?[][] couplesArray = new int?[99999][];
     public int numberOfCreaturesThatDiedWithoutProcriating = 0;
     bool seedsCouplesFormed = false;
+    Random randomNumber = new Random();
+
 
     public int?[][] copulesAndBirths(int numberOfCouples, int?[][] couplesArray, Individuals[] individualsArray, int numberOfBornCreatures, int numberOfSeedsGenes)
     {
@@ -368,10 +370,10 @@ public class Simulation
 
             for (int w = 0; w < numberOfCreaturesToReceiveGenes; w++)
             {
-                builtIndividualsFromCurrentCouple[0] = buildNewIndividual(chosenParent1, chosenParent2, numberOfCreaturesToReceiveGenes, individualsArray, newIndividual);
+                builtIndividualsFromCurrentCouple[0] = buildNewIndividual(chosenParent1, chosenParent2, numberOfCreaturesToReceiveGenes, individualsArray, newIndividual, numberOfSeedsGenes);
                 for (int b = 0; b < newIndividual.Length; b++)
                 {
-                    if (newIndividual != null)
+                    if (newIndividual != null) // Clear newIndividual array for the next creature
                     {
                         newIndividual[b] = null;
                     }
@@ -427,7 +429,7 @@ public class Simulation
 
     public int?[][] formCouples(int?[][] couplesArray, Individuals[] individualsArray, int numberOfSeeds, int numberOfBornCreatures, int?[][] individualsOfCurrentGeneration)
     {
-        int?[] remainingSeedsToChoose = new int?[(numberOfSeeds - (numberOfSeeds % 2) + 2)];
+        int[] remainingSeedsToChoose = new int[(numberOfSeeds - (numberOfSeeds % 2) + 2)];
         int?[] remainingIndividualsToChoose = new int?[(numberOfBornCreatures - (numberOfBornCreatures % 2)) + 9999];
         int randomIndividual = 0;
         int randomSeed = 0;
@@ -493,7 +495,7 @@ public class Simulation
 
         for (int b = 0; b < remainingSeedsToChoose.Length; b++)
         {
-            remainingSeedsToChoose[b] = null;
+            remainingSeedsToChoose[b] = 0;
         }
 
         return this.couplesArray;
@@ -536,13 +538,15 @@ public class Simulation
 
 
 
-    public int chooseRandomSeed(int randomSeed, int numberOfSeeds, Individuals[] individualsArray, int?[][] couplesArray, int?[] remainingSeedsToChoose)
+    public int chooseRandomSeed(int randomSeed, int numberOfSeeds, Individuals[] individualsArray, int?[][] couplesArray, int[] remainingSeedsToChoose)
     {
-        Random randomNumber = new Random();
-        randomSeed = randomNumber.Next(0, numberOfSeeds + 1);
-        if (remainingSeedsToChoose.Contains(randomSeed))
+        int randomRemainingSeed = 0;
+        randomRemainingSeed = 0;
+        randomRemainingSeed = this.randomNumber.Next(0, numberOfSeeds + 1);
+        if (remainingSeedsToChoose[randomRemainingSeed] != 0)
         {
-            remainingSeedsToChoose[randomSeed] = null;
+            randomSeed = remainingSeedsToChoose[randomRemainingSeed];
+            remainingSeedsToChoose[randomSeed] = 0;
         }
 
         else
@@ -558,27 +562,100 @@ public class Simulation
     public int?[] buildNewIndividual(int?[] chosenParent1, int?[] chosenParent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int?[] newIndividual, int numberOfSeedsGenes) //Determines the genetic configuration of the creature
     {
         Random chooseRandomAllele = new Random();
-        bool parent1AlleleToDonate;
-        bool parent2AlleleToDonate;
+        bool parent1AlleleToDonate = true;
+        bool parent2AlleleToDonate = true;
 
         for (int h=0; h<numberOfSeedsGenes;h++)
         {
-            if (chosenParent1[h] == 0) // Chooses
+            if (chosenParent1[h] == 0) //Choo
             {
-                parent1AlleleToDonate
+                parent1AlleleToDonate = true;
+            }
+            else if (chosenParent1[h] == 1)
+            {
+                if (chooseRandomAllele.Next(0, 2) == 1)
+                {
+                    parent1AlleleToDonate = true;
+                }
+                else if (chooseRandomAllele.Next(0, 2) == 0)
+                {
+                    parent1AlleleToDonate = false;
+                }
+                else
+                {
+                    Console.WriteLine("Error at buildNewIndividual");
+                    Console.ReadKey();
+                }
+            }
+            else if (chosenParent1[h] == 2)
+            {
+                parent1AlleleToDonate = false;
             }
             else
             {
-
+                Console.WriteLine("Error at buildNewIndividual");
+                Console.ReadKey();
             }
-            if (chooseRandomAllele.Next(0, 2) == 1)
-            {
 
+            if (chosenParent2[h] == 0)
+            {
+                parent2AlleleToDonate = true;
+            }
+
+            else if (chosenParent2[h] == 1)
+            {
+                if (chooseRandomAllele.Next(0, 2) == 1)
+                {
+                    parent2AlleleToDonate = true;
+                }
+                else if (chooseRandomAllele.Next(0, 2) == 0)
+                {
+                    parent2AlleleToDonate = false;
+                }
+                else
+                {
+                    Console.WriteLine("Error at buildNewIndividual");
+                    Console.ReadKey();
+                }
+            }
+            else if (chosenParent2[h] == 2)
+            {
+                parent2AlleleToDonate = false;
             }
             else
             {
-
+                Console.WriteLine("Error at buildNewIndividual");
+                Console.ReadKey();
             }
+
+            //Builds new individual gene
+
+            if (parent1AlleleToDonate == true && parent2AlleleToDonate == true)
+            {
+                newIndividual[h] = 0;
+            }
+
+            else if (parent1AlleleToDonate == false && parent2AlleleToDonate == false)
+            {
+                newIndividual[h] = 2;
+            }
+
+            else if (parent1AlleleToDonate == true && parent2AlleleToDonate == false)
+            {
+                newIndividual[h] = 1;
+            }
+            
+            else if (parent1AlleleToDonate == false && parent2AlleleToDonate == true)
+            {
+                newIndividual[h] = 1;
+            }
+
+            else
+            {
+                Console.WriteLine("Error at buildNewIndividual");
+                Console.ReadKey();
+            }
+
         }
 
         return newIndividual;
