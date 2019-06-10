@@ -357,7 +357,7 @@ public class Simulation
                 chosenParent1[l] = couplesArray[parent1][l];
                 chosenParent2[l] = couplesArray[parent2][l];
             }
-            
+
             //couplesArray[parent1];
             //couplesArray[parent2];
             Random randomBirths = new Random();
@@ -416,7 +416,7 @@ public class Simulation
                 }
             }
 
-            
+
             parent1 = 0;
             parent2 = 0;
 
@@ -429,12 +429,11 @@ public class Simulation
 
     public int?[][] formCouples(int?[][] couplesArray, Individuals[] individualsArray, int numberOfSeeds, int numberOfBornCreatures, int?[][] individualsOfCurrentGeneration)
     {
-        int[] remainingSeedsToChoose = new int[(numberOfSeeds - (numberOfSeeds % 2) + 2)];
+        int?[] remainingSeedsToChoose = new int?[(numberOfSeeds - (numberOfSeeds % 2) + 2)];
         int?[] remainingIndividualsToChoose = new int?[(numberOfBornCreatures - (numberOfBornCreatures % 2)) + 9999];
         int randomIndividual = 0;
-        int randomSeed = 0;
-        Random randomNumber = new Random();
-
+        int randomSeed1 = 0;
+        int randomSeed2 = 0;
 
         if (numberOfBornCreatures != 0) //Form couples with the current generations' creatures
         {
@@ -461,6 +460,8 @@ public class Simulation
 
         else  //Form the first couples with the seeds
         {
+            int k;
+            int coupleCounter = 2;
             for (int v = 0; v < numberOfSeeds; v++) //Fill the remainingSeedsToChoose
             {
                 remainingSeedsToChoose[v] = v;
@@ -468,10 +469,50 @@ public class Simulation
 
             for (int i = 0; i < numberOfSeeds - (numberOfSeeds % 2); i++)
             {
+                k = i + 1;
                 Console.WriteLine("picking random seed" + i + " to form couples");
                 Console.ReadKey();
-                randomSeed = chooseRandomSeed(randomSeed, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
-                this.couplesArray[i] = individualsArray[randomSeed].geneticConfiguration;
+                randomSeed1 = chooseRandomSeed1(randomSeed1, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
+                remainingSeedsToChoose[randomSeed1] = null;
+                this.couplesArray[i] = individualsArray[randomSeed1].geneticConfiguration;
+                
+                    if (i % 2 == 0)
+                    {
+                        Console.WriteLine("Getting Couple " + coupleCounter + " Parent1 =  " + randomSeed1);
+                        Console.ReadKey();
+                    }
+                    else if (i % 2 == 1)
+                    {
+                        Console.WriteLine("Getting Couple " + coupleCounter + "Parent2 = " + randomSeed1);
+                        coupleCounter = coupleCounter + 1;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Error at FormCouples");
+                    }
+                
+             
+            }
+    
+
+            for(int h=0;h<this.couplesArray.Length;h++) /*/Put "one" at each creature's ninetieth position of genetic array, to be used in GenerateBirth method as a way
+            to control which creature has already been chosen /*/ 
+            {
+                if(this.couplesArray[h] != null)
+                {
+                    this.couplesArray[h][90] = 1;
+                }
+
+                else if(this.couplesArray[h] == null)
+                {
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Error at FormCouples method");
+                    Console.ReadKey();
+                }
             }
 
             if (numberOfSeeds % 2 == 1)
@@ -501,18 +542,22 @@ public class Simulation
         return this.couplesArray;
     }
 
-    public int chooseRandomCouple(int parent1, int?[][]couplesArray)
+    public int chooseRandomCouple(int parent1, int?[][] couplesArray)
     {
-        Random randomCouple = new Random();
-        parent1 = randomCouple.Next(0, couplesArray.Length);
-        if (couplesArray[parent1][90] == 1)
+        parent1 = randomNumber.Next(0, couplesArray.Length);
+        if (couplesArray[parent1] != null)
         {
             couplesArray[parent1] = null;
             couplesArray[parent1 + 1] = null;
         }
-        else
+        else if (couplesArray[parent1][90] == null)
         {
             chooseRandomCouple(parent1, couplesArray);
+        }
+        else
+        {
+            Console.WriteLine("Error at chooseRandomCouple method");
+            Console.ReadKey();
         }
 
         return parent1;
@@ -520,11 +565,14 @@ public class Simulation
 
     public int chooseRandomIndividual(int randomIndividual, int allBornCreatures, Individuals[] individualsArray, int?[][] couplesArray, int?[] remainingIndividualsToChoose)
     {
-        Random randomNumber = new Random();
+        int randomRemainingIndividual = 0;
+
         randomIndividual = randomNumber.Next(0, numberOfBornCreatures + 1);
-        if (remainingIndividualsToChoose.Contains(randomIndividual))
+        if (remainingIndividualsToChoose[randomRemainingIndividual] != null)
         {
-            remainingIndividualsToChoose[randomIndividual] = null;
+            randomIndividual = remainingIndividualsToChoose[randomRemainingIndividual].Value;
+            remainingIndividualsToChoose[randomRemainingIndividual] = null;
+            remainingIndividualsToChoose[randomRemainingIndividual + 1] = null;
         }
 
         else
@@ -538,26 +586,25 @@ public class Simulation
 
 
 
-    public int chooseRandomSeed(int randomSeed, int numberOfSeeds, Individuals[] individualsArray, int?[][] couplesArray, int[] remainingSeedsToChoose)
+    public int chooseRandomSeed1(int randomSeed1, int numberOfSeeds, Individuals[] individualsArray, int?[][] couplesArray, int?[] remainingSeedsToChoose)
     {
         int randomRemainingSeed = 0;
-        randomRemainingSeed = 0;
         randomRemainingSeed = this.randomNumber.Next(0, numberOfSeeds + 1);
-        if (remainingSeedsToChoose[randomRemainingSeed] != 0)
+        if (remainingSeedsToChoose.Contains(randomRemainingSeed))
         {
-            randomSeed = remainingSeedsToChoose[randomRemainingSeed];
-            remainingSeedsToChoose[randomSeed] = 0;
+            randomSeed1 = randomRemainingSeed;
+            remainingSeedsToChoose[randomRemainingSeed] = null;
         }
 
         else
         {
-            chooseRandomSeed(randomSeed, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
+            chooseRandomSeed1(randomSeed1, numberOfSeeds, individualsArray, this.couplesArray, remainingSeedsToChoose);
         }
 
-        return randomSeed;
+        return randomSeed1;
     }
 
-
+ 
 
     public int?[] buildNewIndividual(int?[] chosenParent1, int?[] chosenParent2, int numberOfCreaturesToReceiveGenes, Individuals[] individualsArray, int?[] newIndividual, int numberOfSeedsGenes) //Determines the genetic configuration of the creature
     {
@@ -565,7 +612,7 @@ public class Simulation
         bool parent1AlleleToDonate = true;
         bool parent2AlleleToDonate = true;
 
-        for (int h=0; h<numberOfSeedsGenes;h++)
+        for (int h = 0; h < numberOfSeedsGenes; h++)
         {
             if (chosenParent1[h] == 0) //Choo
             {
@@ -644,7 +691,7 @@ public class Simulation
             {
                 newIndividual[h] = 1;
             }
-            
+
             else if (parent1AlleleToDonate == false && parent2AlleleToDonate == true)
             {
                 newIndividual[h] = 1;
